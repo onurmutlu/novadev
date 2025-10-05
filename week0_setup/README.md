@@ -8,27 +8,97 @@
 
 Week 1'e başlamadan önce bu dökümanları oku. Kod yazmadan önce **zihinsel modeli** doğru kurmak kritik.
 
-### 📖 Ders Dökümanları
+### 📖 Ders Dökümanları (3 Seviye)
 
-1. **[Temel Kavramlar](theory_foundations.md)** ⭐
-   - Model, veri, loss, gradient, tensör, autograd
-   - 45-60 dakika okuma
-   - **Hedef:** ML'in temellerini kavramak
+#### Seviye 1: Temel Kavramlar (Başlangıç)
+**[Temel Kavramlar - Sezgisel Bakış](theory_foundations.md)** ⭐
+- Model, veri, loss, gradient nedir?
+- Tensör operasyonları, autograd sezgisi
+- Overfit/underfit, optimizer seçimi
+- **Süre:** 60-90 dakika
+- **Hedef:** ML kavramlarını **görselleştir**ebilme
 
-2. **[İleri Konular & Pratik](theory_advanced.md)**
-   - Reproduksiyon, donanım, debug, gerçek hayat
-   - 30-45 dakika okuma
-   - **Hedef:** Profesyonel pratikler
+#### Seviye 2: Matematiksel Temeller (Orta-İleri)
+**[Matematiksel Temeller - Hocanın Tahtası](theory_mathematical.md)** 📐
+- Loss fonksiyonlarının probabilistik kökenleri (MLE, MAP)
+- Optimizasyon matematiği (condition number, curvature)
+- Feature engineering derinliği
+- **Süre:** 90-120 dakika (2 bölüm)
+- **Hedef:** **"Neden?"** sorularına cevap
 
-### 🎯 Okuma Sırası
+**[Matematiksel Temeller Part 2](theory_mathematical_part2.md)**
+- Bias-variance matematiği
+- Regularization teorisi (L1/L2 probabilistik köken)
+- Metrik seçimi, deney disiplini
+- Debug protokolü
+
+#### Seviye 3: İleri Konular & Pratik (Uzman)
+**[İleri Konular & Saha Deneyimi](theory_advanced.md)** 🎯
+- Reproduksiyon stratejileri
+- Donanım optimizasyonu (MPS/CUDA)
+- Sayısal stabilite (NaN, gradient explosion)
+- Gerçek hayat hikayeleri
+
+### 🎯 Önerilen Okuma Sırası
 
 ```
-Day 0 Sabah:    theory_foundations.md (Temel kavramlar)
-Day 0 Öğleden:  theory_advanced.md (İleri konular)
-Day 0 Akşam:    Kurulum ve testler (bu döküman)
+┌─────────────────────────────────────────────┐
+│ Day 0 - Sabah (90-120 dk)                   │
+├─────────────────────────────────────────────┤
+│ 1. theory_foundations.md                    │
+│    └─ Sezgisel kavramlar, görsel açıklamalar│
+│                                              │
+│ 2. theory_mathematical.md (Part 1)          │
+│    └─ Matematiksel derinlik başlangıç       │
+└─────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────┐
+│ Day 0 - Öğleden Sonra (90-120 dk)           │
+├─────────────────────────────────────────────┤
+│ 3. theory_mathematical_part2.md             │
+│    └─ Probabilistik bakış, regularization   │
+│                                              │
+│ 4. theory_advanced.md                       │
+│    └─ Pratik ipuçları, debug                │
+└─────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────┐
+│ Day 0 - Akşam (30-45 dk)                    │
+├─────────────────────────────────────────────┤
+│ 5. Kurulum ve testler (bu döküman)          │
+│    └─ PyTorch MPS, Ollama, setup verify     │
+└─────────────────────────────────────────────┘
 ```
 
-**Not:** Kod yazmadan teoriyi okumak **zaman kaybı DEĞİL**. Week 1'de çok daha hızlı ilerlersin.
+### 💡 Hangi Seviyeden Başlamalıyım?
+
+**Yeni Başlayan:**
+```
+theory_foundations.md → Setup → Week 1
+(Matematiksel kısmı Week 1'den sonra oku)
+```
+
+**Orta Seviye (Python + biraz matematik):**
+```
+theory_foundations.md → theory_mathematical.md → Setup → Week 1
+```
+
+**İleri Seviye:**
+```
+Hepsini sırayla oku, Week 1'de derin anlayışla başla
+```
+
+### ⚠️ Önemli Not
+
+**Kod yazmadan teoriyi okumak zaman kaybı DEĞİL!**
+
+Sebebi:
+- Week 1'de **çok daha hızlı** ilerlersin
+- "Neden?" sorularına **anında** cevap verebilirsin
+- Debug yaparken **sistematik** düşünürsün
+- **Literatür** okumaya hazır olursun
+
+> "Teori olmadan pratik kördür, pratik olmadan teori anlamsızdır."
 
 ---
 
