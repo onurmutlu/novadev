@@ -8,10 +8,19 @@
 
 Week 1'e başlamadan önce bu dökümanları oku. Kod yazmadan önce **zihinsel modeli** doğru kurmak kritik.
 
-### 📖 Ders Dökümanları (3 Seviye)
+### 📖 Ders Dökümanları (4 Seviye)
 
-#### Seviye 1: Temel Kavramlar (Başlangıç)
-**[Temel Kavramlar - Sezgisel Bakış](theory_foundations.md)** ⭐
+#### Seviye 0: Sıfırdan Başlangıç (Lise Seviyesi) 🌱
+**[Makine Öğrenmesine Giriş - İlk Adım](theory_intro.md)** 🎯
+- "ML nedir?" tek cümle + günlük örnekler
+- Kod yok, formül minimum, bol benzetme
+- Mini quiz + pratik alıştırmalar
+- Sözlük (cep kartı)
+- **Süre:** 45-60 dakika
+- **Hedef:** "Ah ha! Demek bu!" anı yaşamak
+
+#### Seviye 1: Temel Kavramlar (Başlangıç) ⭐
+**[Temel Kavramlar - Sezgisel Bakış](theory_foundations.md)**
 - Model, veri, loss, gradient nedir?
 - Tensör operasyonları, autograd sezgisi
 - Overfit/underfit, optimizer seçimi
@@ -43,49 +52,73 @@ Week 1'e başlamadan önce bu dökümanları oku. Kod yazmadan önce **zihinsel 
 
 ```
 ┌─────────────────────────────────────────────┐
-│ Day 0 - Sabah (90-120 dk)                   │
+│ Day 0 - Sabah (2-3 saat)                    │
 ├─────────────────────────────────────────────┤
-│ 1. theory_foundations.md                    │
+│ 1. theory_intro.md (45-60 dk) 🌱            │
+│    └─ Sıfırdan başlangıç, lise seviyesi     │
+│    └─ Günlük örnekler, benzetmeler          │
+│                                              │
+│ 2. theory_foundations.md (60-90 dk) ⭐      │
 │    └─ Sezgisel kavramlar, görsel açıklamalar│
-│                                              │
-│ 2. theory_mathematical.md (Part 1)          │
-│    └─ Matematiksel derinlik başlangıç       │
+│    └─ Tensör, autograd detayları            │
 └─────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────┐
-│ Day 0 - Öğleden Sonra (90-120 dk)           │
+│ Day 0 - Öğleden Sonra (2-3 saat)            │
 ├─────────────────────────────────────────────┤
-│ 3. theory_mathematical_part2.md             │
-│    └─ Probabilistik bakış, regularization   │
+│ 3. theory_mathematical.md (90 dk) 📐        │
+│    └─ Matematiksel derinlik, MLE, MAP       │
+│    └─ Optimizasyon matematiği               │
 │                                              │
-│ 4. theory_advanced.md                       │
-│    └─ Pratik ipuçları, debug                │
+│ 4. theory_mathematical_part2.md (60 dk)     │
+│    └─ Bias-variance, regularization teorisi │
+│    └─ Debug protokolü, saha hataları        │
 └─────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────┐
-│ Day 0 - Akşam (30-45 dk)                    │
+│ Day 0 - Akşam (1-1.5 saat)                  │
 ├─────────────────────────────────────────────┤
-│ 5. Kurulum ve testler (bu döküman)          │
+│ 5. theory_advanced.md (30-45 dk) 🎯         │
+│    └─ Pratik ipuçları, donanım, debug       │
+│                                              │
+│ 6. Kurulum ve testler (30-45 dk)            │
 │    └─ PyTorch MPS, Ollama, setup verify     │
+│    └─ Bu dökümanın devamı ↓                 │
 └─────────────────────────────────────────────┘
 ```
 
 ### 💡 Hangi Seviyeden Başlamalıyım?
 
-**Yeni Başlayan:**
+**Tam Yeni Başlayan (ML hiç bilmiyorum):**
 ```
-theory_foundations.md → Setup → Week 1
+theory_intro.md → Setup → Week 1
+(Diğerlerini Week 1'den sonra oku)
+
+Neden?
+→ Önce sezgi kazan
+→ Kod yazarak pekiştir
+→ Sonra derinleş
+```
+
+**Orta Seviye (Python biliyorum, ML kavram var):**
+```
+theory_intro.md (hızlı gözden geçir) → theory_foundations.md → Setup → Week 1
 (Matematiksel kısmı Week 1'den sonra oku)
+
+Neden?
+→ Boşlukları doldur
+→ Terminolojiyi yerleştir
+→ Direkt practice'e geç
 ```
 
-**Orta Seviye (Python + biraz matematik):**
+**İleri Seviye (ML background var, derinlemek istiyorum):**
 ```
-theory_foundations.md → theory_mathematical.md → Setup → Week 1
-```
+Hepsini sırayla oku (6-8 saat) → Week 1'de derin anlayışla başla
 
-**İleri Seviye:**
-```
-Hepsini sırayla oku, Week 1'de derin anlayışla başla
+Neden?
+→ "Neden?" sorularına cevap bul
+→ Matematiksel temelleri otur
+→ Saha deneyimlerini al
 ```
 
 ### ⚠️ Önemli Not
