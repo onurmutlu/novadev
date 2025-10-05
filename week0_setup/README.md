@@ -4,6 +4,34 @@
 
 ---
 
+## 📚 Teori Notları (ÖNEMLİ!)
+
+Week 1'e başlamadan önce bu dökümanları oku. Kod yazmadan önce **zihinsel modeli** doğru kurmak kritik.
+
+### 📖 Ders Dökümanları
+
+1. **[Temel Kavramlar](theory_foundations.md)** ⭐
+   - Model, veri, loss, gradient, tensör, autograd
+   - 45-60 dakika okuma
+   - **Hedef:** ML'in temellerini kavramak
+
+2. **[İleri Konular & Pratik](theory_advanced.md)**
+   - Reproduksiyon, donanım, debug, gerçek hayat
+   - 30-45 dakika okuma
+   - **Hedef:** Profesyonel pratikler
+
+### 🎯 Okuma Sırası
+
+```
+Day 0 Sabah:    theory_foundations.md (Temel kavramlar)
+Day 0 Öğleden:  theory_advanced.md (İleri konular)
+Day 0 Akşam:    Kurulum ve testler (bu döküman)
+```
+
+**Not:** Kod yazmadan teoriyi okumak **zaman kaybı DEĞİL**. Week 1'de çok daha hızlı ilerlersin.
+
+---
+
 ## ✅ Kurulum Adımları
 
 ### 1. Python & Virtual Environment
