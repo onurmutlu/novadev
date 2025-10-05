@@ -8,117 +8,192 @@
 
 Week 1'e başlamadan önce bu dökümanları oku. Kod yazmadan önce **zihinsel modeli** doğru kurmak kritik.
 
-### 📖 Ders Dökümanları (4 Seviye)
+### 📖 Ders Dökümanları (5 Seviye - Kademe Kademe)
 
-#### Seviye 0: Sıfırdan Başlangıç (Lise Seviyesi) 🌱
-**[Makine Öğrenmesine Giriş - İlk Adım](theory_intro.md)** 🎯
-- "ML nedir?" tek cümle + günlük örnekler
-- Kod yok, formül minimum, bol benzetme
-- Mini quiz + pratik alıştırmalar
+#### Seviye 0: Sıfırdan Başlangıç (Lise) 🌱
+**[Makine Öğrenmesine Giriş - İlk Adım](theory_intro.md)** 
+- "ML nedir?" tek cümle + günlük örnekler (Netflix, Spam, Klavye)
+- Kod yok, formül yok, bol benzetme (Radyo, Dağ, Fatura)
+- Mini quiz (4 soru) + pratik alıştırma (3 problem)
+- En sık 10 hata + çözüm
 - Sözlük (cep kartı)
 - **Süre:** 45-60 dakika
-- **Hedef:** "Ah ha! Demek bu!" anı yaşamak
+- **Hedef:** "Ah ha! Demek bu kadar basit!" anı
 
-#### Seviye 1: Temel Kavramlar (Başlangıç) ⭐
-**[Temel Kavramlar - Sezgisel Bakış](theory_foundations.md)**
-- Model, veri, loss, gradient nedir?
-- Tensör operasyonları, autograd sezgisi
+#### Seviye 1: Temel Kavramlar (Üniversite Giriş) 📚
+**[Core Concepts - Akademik Yaklaşım](theory_core_concepts.md)** ⭐ YENİ!
+- Formal tanımlar (f_θ, parametreler, loss, gradient)
+- Matematiksel çerçeve (hafif matematik, korkutmadan)
+- Probabilistik kökenler (MSE ← Gaussian MLE, CE ← Bernoulli)
+- L2/L1'in MAP bağlantısı (Gaussian/Laplace prior)
+- Bias-variance trade-off
+- **Süre:** 90-120 dakika
+- **Hedef:** Week 1'de "bu formül nereden geldi?" bilmek
+
+#### Seviye 2: Sezgisel Derinlik (Görselleştirme) 🎨
+**[Foundations - Sezgisel Bakış](theory_foundations.md)**
+- Model, veri, loss, gradient DETAYLIdır
+- Tensör operasyonları, autograd akışı
 - Overfit/underfit, optimizer seçimi
+- Bol görsel açıklama
 - **Süre:** 60-90 dakika
-- **Hedef:** ML kavramlarını **görselleştir**ebilme
+- **Hedef:** Kavramları **görselleştir**ebilme
 
-#### Seviye 2: Matematiksel Temeller (Orta-İleri)
-**[Matematiksel Temeller - Hocanın Tahtası](theory_mathematical.md)** 📐
-- Loss fonksiyonlarının probabilistik kökenleri (MLE, MAP)
-- Optimizasyon matematiği (condition number, curvature)
-- Feature engineering derinliği
-- **Süre:** 90-120 dakika (2 bölüm)
-- **Hedef:** **"Neden?"** sorularına cevap
+#### Seviye 3: Matematiksel Temeller (Hocanın Tahtası) 📐
+**[Mathematical Foundations Part 1](theory_mathematical.md)**
+- i.i.d. varsayımı ve ihlalleri (covariate/concept/prior shift)
+- Data leakage detayları (temporal, target, preprocessing)
+- Condition number, curvature
+- Feature engineering matematiği
+- Loss fonksiyonları (MSE/MAE/Huber/CE/Focal)
+- **Süre:** 90 dakika
+- **Hedef:** Matematiksel **derinlik**
 
-**[Matematiksel Temeller Part 2](theory_mathematical_part2.md)**
-- Bias-variance matematiği
-- Regularization teorisi (L1/L2 probabilistik köken)
-- Metrik seçimi, deney disiplini
-- Debug protokolü
+**[Mathematical Foundations Part 2](theory_mathematical_part2.md)**
+- Sayısal koşullar, Hessian
+- MLE/MAP türetim detayları
+- Bias-variance matematiksel ayrıştırma
+- Regularization teorisi derinliği
+- Metrik matematiği (ROC, PR, calibration)
+- Deney disiplini, hyperparameter search
+- **Süre:** 60-90 dakika
+- **Hedef:** "Neden?" sorularına **tam cevap**
 
-#### Seviye 3: İleri Konular & Pratik (Uzman)
-**[İleri Konular & Saha Deneyimi](theory_advanced.md)** 🎯
+#### Seviye 4: İleri Konular & Saha (Uzman) 🎯
+**[Advanced Topics - Pratik Deneyim](theory_advanced.md)**
 - Reproduksiyon stratejileri
-- Donanım optimizasyonu (MPS/CUDA)
-- Sayısal stabilite (NaN, gradient explosion)
-- Gerçek hayat hikayeleri
+- Donanım optimizasyonu (MPS/CUDA/CPU)
+- Sayısal stabilite (NaN, gradient explosion, clipping)
+- Debug protokolü
+- Gerçek hayat hikayeleri (saha deneyimi)
+- **Süre:** 30-45 dakika
+- **Hedef:** Profesyonel **pratikler**
 
 ### 🎯 Önerilen Okuma Sırası
 
 ```
-┌─────────────────────────────────────────────┐
-│ Day 0 - Sabah (2-3 saat)                    │
-├─────────────────────────────────────────────┤
-│ 1. theory_intro.md (45-60 dk) 🌱            │
-│    └─ Sıfırdan başlangıç, lise seviyesi     │
-│    └─ Günlük örnekler, benzetmeler          │
-│                                              │
-│ 2. theory_foundations.md (60-90 dk) ⭐      │
-│    └─ Sezgisel kavramlar, görsel açıklamalar│
-│    └─ Tensör, autograd detayları            │
-└─────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│ Day 0 - Sabah (2.5-3 saat)                       │
+├──────────────────────────────────────────────────┤
+│ 1. theory_intro.md (45-60 dk) 🌱                 │
+│    └─ Sıfırdan başlangıç, lise seviyesi          │
+│    └─ Günlük örnekler, benzetmeler               │
+│    └─ Hedef: "Ah ha!" anı                        │
+│                                                   │
+│ 2. theory_core_concepts.md (90-120 dk) 📚 ⭐ YENİ│
+│    └─ Üniversite seviyesi, formal tanımlar       │
+│    └─ Hafif matematik (θ, ∇L, MLE, MAP)         │
+│    └─ Hedef: "Formül nereden geldi?" bilmek      │
+└──────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────┐
-│ Day 0 - Öğleden Sonra (2-3 saat)            │
-├─────────────────────────────────────────────┤
-│ 3. theory_mathematical.md (90 dk) 📐        │
-│    └─ Matematiksel derinlik, MLE, MAP       │
-│    └─ Optimizasyon matematiği               │
-│                                              │
-│ 4. theory_mathematical_part2.md (60 dk)     │
-│    └─ Bias-variance, regularization teorisi │
-│    └─ Debug protokolü, saha hataları        │
-└─────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│ Day 0 - Öğleden Sonra (2.5-3 saat)               │
+├──────────────────────────────────────────────────┤
+│ 3. theory_foundations.md (60-90 dk) 🎨           │
+│    └─ Sezgisel derinlik, görsel açıklamalar      │
+│    └─ Tensör, autograd, optimizer detayları      │
+│                                                   │
+│ 4. theory_mathematical.md (90 dk) 📐             │
+│    └─ Matematiksel temeller (Part 1)             │
+│    └─ i.i.d., leakage, condition number          │
+└──────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────┐
-│ Day 0 - Akşam (1-1.5 saat)                  │
-├─────────────────────────────────────────────┤
-│ 5. theory_advanced.md (30-45 dk) 🎯         │
-│    └─ Pratik ipuçları, donanım, debug       │
-│                                              │
-│ 6. Kurulum ve testler (30-45 dk)            │
-│    └─ PyTorch MPS, Ollama, setup verify     │
-│    └─ Bu dökümanın devamı ↓                 │
-└─────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│ Day 0 - Akşam (1.5-2 saat)                       │
+├──────────────────────────────────────────────────┤
+│ 5. theory_mathematical_part2.md (60-90 dk)       │
+│    └─ MLE/MAP türetimler, bias-variance          │
+│    └─ Metrik matematiği, deney disiplini         │
+│                                                   │
+│ 6. theory_advanced.md (30-45 dk) 🎯              │
+│    └─ Pratik ipuçları, donanım, debug            │
+│    └─ Saha deneyimleri                           │
+│                                                   │
+│ 7. Kurulum ve testler (30 dk)                    │
+│    └─ PyTorch MPS, Ollama, setup verify          │
+│    └─ Bu dökümanın devamı ↓                      │
+└──────────────────────────────────────────────────┘
+
+TOPLAM: 6-8 saat (yoğun ama değerli!)
 ```
 
 ### 💡 Hangi Seviyeden Başlamalıyım?
 
-**Tam Yeni Başlayan (ML hiç bilmiyorum):**
+#### 🌱 Tam Yeni Başlayan (ML hiç bilmiyorum)
 ```
-theory_intro.md → Setup → Week 1
-(Diğerlerini Week 1'den sonra oku)
+Yol:
+  theory_intro.md → Setup → Week 1
+  (Diğerlerini Week 1 sırasında/sonra oku)
+
+Süre: 1 saat teori + 30 dk setup
 
 Neden?
-→ Önce sezgi kazan
-→ Kod yazarak pekiştir
-→ Sonra derinleş
+  ✓ Önce sezgi kazan (radyo, dağ analojileri)
+  ✓ Korkutmadan başla (formül yok)
+  ✓ Kod yazarak pekiştir
+  ✓ Sonra derinleş (geri dön theory_core_concepts'e)
+
+Sonuç:
+  Week 1'de "ne yaptığımı biliyorum" rahatı
 ```
 
-**Orta Seviye (Python biliyorum, ML kavram var):**
+#### 📚 Orta Seviye (Python biliyorum, ML az var)
 ```
-theory_intro.md (hızlı gözden geçir) → theory_foundations.md → Setup → Week 1
-(Matematiksel kısmı Week 1'den sonra oku)
+Yol:
+  theory_intro.md (45 dk, gözden geçir)
+  → theory_core_concepts.md (90 dk, ÖNEMLİ!) ⭐
+  → theory_foundations.md (60 dk)
+  → Setup → Week 1
+  (Matematiksel kısmı Week 1'den sonra oku)
+
+Süre: 3-4 saat teori + 30 dk setup
 
 Neden?
-→ Boşlukları doldur
-→ Terminolojiyi yerleştir
-→ Direkt practice'e geç
+  ✓ Boşlukları doldur (formal tanımlar)
+  ✓ "Neden MSE, neden L2?" öğren
+  ✓ Terminolojiyi yerleştir (θ, ∇L, MLE)
+  ✓ Week 1 kodunu ANLAYARAK yaz
+
+Sonuç:
+  Week 1'de "bu formül nereden geldi" bileceksin
 ```
 
-**İleri Seviye (ML background var, derinlemek istiyorum):**
+#### 📐 İleri Seviye (ML background var, derinlemek istiyorum)
 ```
-Hepsini sırayla oku (6-8 saat) → Week 1'de derin anlayışla başla
+Yol:
+  Hepsini sırayla oku (theory_intro → core_concepts
+  → foundations → mathematical 1&2 → advanced)
+  → Setup → Week 1
+
+Süre: 6-8 saat teori + 30 dk setup
 
 Neden?
-→ "Neden?" sorularına cevap bul
-→ Matematiksel temelleri otur
-→ Saha deneyimlerini al
+  ✓ Matematiksel temelleri TAM otur
+  ✓ "Neden?" sorularına DERİN cevaplar
+  ✓ MLE/MAP bağlantılarını GÖR
+  ✓ Bias-variance matematiğini ANLA
+  ✓ Saha deneyimlerini AL
+
+Sonuç:
+  Week 1'i akademik derinlikle yaz, literatür okumaya hazır ol
+```
+
+#### 🚀 Hızlı Track (Zaman dar, tecrübe var)
+```
+Yol:
+  theory_core_concepts.md (ÖNEMLİ!)
+  + theory_advanced.md (debug, pratik)
+  → Setup → Week 1
+
+Süre: 2-2.5 saat
+
+Neden?
+  ✓ Temel formülleri kapat (MLE, MAP)
+  ✓ Pratik ipuçlarını al (debug protokolü)
+  ✓ Direkt Week 1'e geç
+
+Sonuç:
+  Hızlı başla ama sağlam temel
 ```
 
 ### ⚠️ Önemli Not
