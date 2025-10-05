@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# MacOS
+.DS_Store
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+*.cover
+
+# Data & Models
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.h5
+data/raw/*
+!data/raw/.gitkeep
+models/cache/*
+!models/cache/.gitkeep
+
+# Logs
+*.log
+logs/
+wandb/
+
+# Ollama (eğer lokal modeller indirildiyse)
+*.gguf
+
+# Temporary
+scratch_*.py
+temp_*.ipynb
+TODO_personal.md
+
+# Docker
+.dockerignore
+*.dockerfile.swp
+
+# Secrets
+.env
+*.key
+*.pem
+secrets/
