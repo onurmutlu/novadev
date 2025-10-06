@@ -1,9 +1,14 @@
-# 🚀 NovaDev v1.1 — AI + Crypto Paralel Program
+# 🧠 NovaDev Master Program v1.1
+> **AI + Crypto Dual-Track | 9-Week Mastery Roadmap**
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
-![Docs](https://img.shields.io/badge/docs-passing-green)
-![Security](https://img.shields.io/badge/crypto-read--only-orange)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue)](CHANGELOG.md)
+[![AI Master Track](https://img.shields.io/badge/AI-Mastery%20(1%2C536%20lines)-brightgreen)](docs/AI_TRACK_OUTLINE.md)
+[![Crypto Master Track](https://img.shields.io/badge/Crypto-Mastery%20(1%2C218%20lines)-9cf)](docs/CRYPTO_TRACK_OUTLINE.md)
+[![Progress](https://img.shields.io/badge/Progress-Week%201%20Launch-orange)](WEEK1_MASTER_PLAN.md)
+[![Docs](https://img.shields.io/badge/docs-31%2C617%2B%20lines-green)](docs/)
+[![Security](https://img.shields.io/badge/crypto-read--only-orange)](#)
+[![License](https://img.shields.io/badge/license-MIT-lightgrey)](#)
+[![Tests](https://img.shields.io/badge/tests-39%2F39%20passing-success)](#)
 
 **"Öğrenirken İki Gemi Yap: 8 Hafta, 80-100 Saat, İki Çalışan Sistem"**
 

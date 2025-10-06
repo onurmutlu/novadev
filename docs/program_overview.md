@@ -1,10 +1,34 @@
-# NovaDev — AI + Kripto Paralel Kurs Programı
+# NovaDev — AI + Crypto Dual-Track Master Program
 
-**"Temeller + Pratik: 8 Haftada İki Sistem"**
+**"From Zero to Double Mastery in 8 Weeks"**
 
 > Bu bir AI kursu veya trading kursu DEĞİL; teori + pratik + ürün birlikte ilerleyen **yaparak öğrenme protokolü**. İki paralel hat: **AI (ML temelleri)** + **Crypto (on-chain istihbarat)**.
 
 **⚠️ Yasal Uyarı:** Crypto hattı bilgilendirme amaçlıdır, finansal tavsiye değildir. Read-only, testnet-first, no custody.
+
+---
+
+## 🗺️ Master Track Navigation
+
+**Complete Week 1-8 Roadmaps:**
+- 🧠 **[AI Master Track Outline](AI_TRACK_OUTLINE.md)** — 1,536 satır, Week 1-8 detaylı AI roadmap
+- 🪙 **[Crypto Master Track Outline](CRYPTO_TRACK_OUTLINE.md)** — 1,218 satır, Week 1-8 detaylı Crypto roadmap
+
+**Quick Overview Table:**
+
+| Week | AI Goal | Crypto Goal | Key Metric |
+|------|---------|-------------|------------|
+| **0** ✅ | Foundations (7,061 lines theory) | Bootstrap + Tahta Serisi (19,005 lines) | Setup ✓, Tests 39/39 ✓ |
+| **1** 👉 | Linear Regression | Collector Loop + API Perf | AI: Val MSE ≤ 0.50 / Crypto: p95 < 1s |
+| **2** | MLP + MNIST | Event Processing + Analytics | AI: acc ≥ 97% / Crypto: Dashboard live |
+| **3** | NLP (Türkçe BERT) | DEX Integration + Price Feeds | AI: F1 ≥ 0.85 / Crypto: TWAP working |
+| **4** | RAG Pipeline | DeFi & Yield Mechanics | AI: Recall@5 ≥ 60% / Crypto: Staking vault |
+| **5** | Tool-calling Agent | Token Economy & Governance | AI: 2-step 70% / Crypto: DAO proposals |
+| **6** | LoRA Fine-tuning | Automation & Infrastructure | AI: A/B ≥ 60% / Crypto: CI/CD green |
+| **7** | Service & Monitoring | Final Integration | AI: p95 < 2.5s / Crypto: Mainnet deploy |
+| **8** | Capstone E2E | Token Launch + Demo | 5-min demo + Release v1.0.0 |
+
+**See detailed week-by-week plans in the track outline files above.**
 
 ---
 
