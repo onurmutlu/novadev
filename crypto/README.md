@@ -20,7 +20,12 @@
 3. Week 0 Hızlı Başlangıç
    📄 crypto/w0_bootstrap/README.md 👉 ŞİMDİ BAŞLA!
    
-4. Haftalık Klasörler
+4. 🆕 "Hoca Tahtası" Teori Serisi (W0)
+   📄 crypto/docs/w0_bootstrap/README.md ⭐ 10 ders × 25-35 dk
+   📄 crypto/docs/w0_bootstrap/01_tahta_evm_giris.md (Ders 01 hazır)
+   📄 crypto/docs/w0_bootstrap/02-10_*.md (Coming)
+   
+5. Haftalık Klasörler
    📁 crypto/w1_ingest/      (Week 1)
    📁 crypto/w2_telegram/    (Week 2)
    ...
