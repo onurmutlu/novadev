@@ -1,130 +1,129 @@
 #!/usr/bin/env python3
 """
-Wallet Report JSON
-Week 0 → Week 1: JSON output for API consumption
+Wallet Report Generator (CLI)
+
+Production-grade CLI for generating wallet activity reports.
+
+Usage:
+    python crypto/w0_bootstrap/report_json.py \
+      --wallet 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 \
+      --hours 24 \
+      --db onchain.duckdb
+
+Options:
+    --wallet ADDR       Wallet address (required)
+    --hours N           Time window in hours (default: 24, max: 720)
+    --db PATH           DuckDB path (default: onchain.duckdb)
+    --chain-id ID       Chain ID (default: 11155111 Sepolia)
+    --validate          Validate against schema before output
+    --output FILE       Write to file instead of stdout
+
+Examples:
+    # Generate 24h report
+    python crypto/w0_bootstrap/report_json.py --wallet 0xABC...
+
+    # Generate 7-day report with validation
+    python crypto/w0_bootstrap/report_json.py \\
+      --wallet 0xABC... --hours 168 --validate
+
+    # Save to file
+    python crypto/w0_bootstrap/report_json.py \\
+      --wallet 0xABC... --output report.json
 """
-import os
-import sys
+
 import argparse
 import json
+import sys
 from pathlib import Path
 
-try:
-    from dotenv import load_dotenv
-    import duckdb
-except ImportError:
-    print("❌ Missing dependencies. Install:")
-    print("   pip install -e '.[crypto]'")
-    sys.exit(1)
+# Add parent to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-HERE = Path(__file__).parent
-load_dotenv(HERE / ".env")
-
-
-def generate_report(wallet: str, hours: int = 24):
-    """Generate wallet report as JSON"""
-    db_path = HERE / "onchain.duckdb"
-    if not db_path.exists():
-        return {
-            "error": "Database not found. Run capture first.",
-            "wallet": wallet,
-            "window_hours": hours
-        }
-    
-    con = duckdb.connect(str(db_path))
-    w = wallet.lower()
-    
-    # Aggregate query
-    q_agg = """
-    WITH recent AS (
-      SELECT *
-      FROM transfers
-      WHERE block_time >= now() - INTERVAL ? HOUR
-        AND (lower(from_addr) = ? OR lower(to_addr) = ?)
-    )
-    SELECT 
-      COALESCE(SUM(CASE WHEN lower(to_addr) = ? THEN value_unit ELSE 0 END), 0) AS inbound,
-      COALESCE(SUM(CASE WHEN lower(from_addr) = ? THEN value_unit ELSE 0 END), 0) AS outbound,
-      COUNT(*) AS tx_count
-    FROM recent
-    """
-    
-    try:
-        result = con.execute(q_agg, [hours, w, w, w, w]).fetchone()
-        inbound, outbound, tx_count = result if result else (0.0, 0.0, 0)
-    except Exception as e:
-        return {
-            "error": str(e),
-            "wallet": wallet,
-            "window_hours": hours
-        }
-    
-    # Top counterparties
-    q_top = """
-    WITH recent AS (
-      SELECT *
-      FROM transfers
-      WHERE block_time >= now() - INTERVAL ? HOUR
-        AND (lower(from_addr) = ? OR lower(to_addr) = ?)
-    )
-    SELECT 
-      CASE WHEN lower(to_addr) = ? THEN from_addr ELSE to_addr END AS counterparty,
-      SUM(value_unit) AS amount
-    FROM recent
-    GROUP BY 1
-    ORDER BY amount DESC
-    LIMIT 3
-    """
-    
-    try:
-        tops = con.execute(q_top, [hours, w, w, w]).fetchall()
-    except Exception as e:
-        tops = []
-    
-    return {
-        "wallet": w,
-        "window_hours": hours,
-        "inbound": float(inbound or 0.0),
-        "outbound": float(outbound or 0.0),
-        "net_flow": float((inbound or 0.0) - (outbound or 0.0)),
-        "tx_count": int(tx_count or 0),
-        "top_counterparties": [
-            {
-                "address": addr,
-                "amount": float(amt)
-            }
-            for addr, amt in tops
-        ]
-    }
+from crypto.features.report_builder import ReportBuilder, ReportConfig
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Generate wallet report (JSON)")
-    ap.add_argument("--wallet", required=True, help="Wallet address (0x...)")
-    ap.add_argument("--hours", type=int, default=24, help="Time window (hours)")
-    ap.add_argument("--pretty", action="store_true", help="Pretty print JSON")
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser(
+        description="Generate wallet activity report",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__
+    )
     
-    # Validate address
-    wallet = args.wallet
-    if not wallet.startswith("0x") or len(wallet) != 42:
-        print(json.dumps({
-            "error": "Invalid address format (expected: 0x... 42 chars)"
-        }))
-        return False
+    parser.add_argument(
+        "--wallet", 
+        required=True, 
+        help="Wallet address (0x...)"
+    )
     
-    # Generate report
-    report = generate_report(wallet, hours=args.hours)
+    parser.add_argument(
+        "--hours", 
+        type=int, 
+        default=24, 
+        help="Time window (1-720 hours, default: 24)"
+    )
     
-    # Output JSON
-    if args.pretty:
-        print(json.dumps(report, indent=2, ensure_ascii=False))
-    else:
-        print(json.dumps(report, ensure_ascii=False))
+    parser.add_argument(
+        "--db", 
+        default="onchain.duckdb", 
+        help="DuckDB path (default: onchain.duckdb)"
+    )
     
-    return True
+    parser.add_argument(
+        "--chain-id", 
+        type=int, 
+        default=11155111, 
+        help="Chain ID (default: 11155111 Sepolia)"
+    )
+    
+    parser.add_argument(
+        "--validate", 
+        action="store_true", 
+        help="Validate against schema before output"
+    )
+    
+    parser.add_argument(
+        "--output", 
+        help="Output file path (default: stdout)"
+    )
+    
+    args = parser.parse_args()
+    
+    try:
+        # Build report
+        config = ReportConfig(chain_id=args.chain_id)
+        
+        with ReportBuilder(args.db, config) as builder:
+            report = builder.build(args.wallet, args.hours)
+        
+        # Optional validation
+        if args.validate:
+            from crypto.features.report_validator import ReportValidator
+            validator = ReportValidator()
+            validator.validate(report)
+            print("✅ Report validated", file=sys.stderr)
+        
+        # Format JSON
+        output_json = json.dumps(report, indent=2)
+        
+        # Output
+        if args.output:
+            Path(args.output).write_text(output_json, encoding='utf-8')
+            print(f"✅ Report written to {args.output}", file=sys.stderr)
+        else:
+            print(output_json)
+        
+    except ValueError as e:
+        print(f"❌ Input error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except FileNotFoundError as e:
+        print(f"❌ Database not found: {e}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
-    success = main()
-    sys.exit(0 if success else 1)
+    main()
