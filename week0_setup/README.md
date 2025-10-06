@@ -69,6 +69,16 @@ Week 1'e başlamadan önce bu dökümanları oku. Kod yazmadan önce **zihinsel 
 - **Süre:** 30-45 dakika
 - **Hedef:** Profesyonel **pratikler**
 
+#### 🎓 Final: Kapanış & Self-Assessment
+**[Week 0 Kapanış Dökümanı](theory_closure.md)** ⭐ ZORUNLU!
+- Son kontrol listesi (soru-cevap formatında)
+- Mini-ödev çözümleri (3 problem analizi)
+- LR semptomları tablosu
+- Overfit/Underfit first-aid
+- Tensor checklist
+- **Süre:** 30-45 dakika
+- **Hedef:** "Week 0'ı gerçekten özümsedim mi?" kendini test et
+
 ### 🎯 Önerilen Okuma Sırası
 
 ```
@@ -99,7 +109,7 @@ Week 1'e başlamadan önce bu dökümanları oku. Kod yazmadan önce **zihinsel 
 └──────────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────────┐
-│ Day 0 - Akşam (1.5-2 saat)                       │
+│ Day 0 - Akşam (2-2.5 saat)                       │
 ├──────────────────────────────────────────────────┤
 │ 5. theory_mathematical_part2.md (60-90 dk)       │
 │    └─ MLE/MAP türetimler, bias-variance          │
@@ -109,12 +119,17 @@ Week 1'e başlamadan önce bu dökümanları oku. Kod yazmadan önce **zihinsel 
 │    └─ Pratik ipuçları, donanım, debug            │
 │    └─ Saha deneyimleri                           │
 │                                                   │
-│ 7. Kurulum ve testler (30 dk)                    │
+│ 7. theory_closure.md (30-45 dk) ⭐ ZORUNLU       │
+│    └─ Son kontrol listesi, self-assessment       │
+│    └─ Mini-ödev çözümleri                        │
+│    └─ "Week 0'ı özümsedim mi?" test              │
+│                                                   │
+│ 8. Kurulum ve testler (30 dk)                    │
 │    └─ PyTorch MPS, Ollama, setup verify          │
 │    └─ Bu dökümanın devamı ↓                      │
 └──────────────────────────────────────────────────┘
 
-TOPLAM: 6-8 saat (yoğun ama değerli!)
+TOPLAM: 7-9 saat (yoğun ama TAM kapsamlı!)
 ```
 
 ### 💡 Hangi Seviyeden Başlamalıyım?
@@ -122,14 +137,17 @@ TOPLAM: 6-8 saat (yoğun ama değerli!)
 #### 🌱 Tam Yeni Başlayan (ML hiç bilmiyorum)
 ```
 Yol:
-  theory_intro.md → Setup → Week 1
+  theory_intro.md
+  → theory_closure.md (kendi cevaplarını yaz!) ⭐
+  → Setup → Week 1
   (Diğerlerini Week 1 sırasında/sonra oku)
 
-Süre: 1 saat teori + 30 dk setup
+Süre: 1.5 saat teori + 30 dk setup
 
 Neden?
   ✓ Önce sezgi kazan (radyo, dağ analojileri)
   ✓ Korkutmadan başla (formül yok)
+  ✓ Self-check ile pekiştir (closure)
   ✓ Kod yazarak pekiştir
   ✓ Sonra derinleş (geri dön theory_core_concepts'e)
 
@@ -143,15 +161,17 @@ Yol:
   theory_intro.md (45 dk, gözden geçir)
   → theory_core_concepts.md (90 dk, ÖNEMLİ!) ⭐
   → theory_foundations.md (60 dk)
+  → theory_closure.md (30 dk, self-check!) ⭐
   → Setup → Week 1
   (Matematiksel kısmı Week 1'den sonra oku)
 
-Süre: 3-4 saat teori + 30 dk setup
+Süre: 3.5-4.5 saat teori + 30 dk setup
 
 Neden?
   ✓ Boşlukları doldur (formal tanımlar)
   ✓ "Neden MSE, neden L2?" öğren
   ✓ Terminolojiyi yerleştir (θ, ∇L, MLE)
+  ✓ Self-check ile teyit et (closure)
   ✓ Week 1 kodunu ANLAYARAK yaz
 
 Sonuç:
@@ -162,10 +182,11 @@ Sonuç:
 ```
 Yol:
   Hepsini sırayla oku (theory_intro → core_concepts
-  → foundations → mathematical 1&2 → advanced)
+  → foundations → mathematical 1&2 → advanced
+  → closure!) ⭐
   → Setup → Week 1
 
-Süre: 6-8 saat teori + 30 dk setup
+Süre: 7-9 saat teori + 30 dk setup
 
 Neden?
   ✓ Matematiksel temelleri TAM otur
@@ -173,6 +194,7 @@ Neden?
   ✓ MLE/MAP bağlantılarını GÖR
   ✓ Bias-variance matematiğini ANLA
   ✓ Saha deneyimlerini AL
+  ✓ Self-assessment ile teyit et
 
 Sonuç:
   Week 1'i akademik derinlikle yaz, literatür okumaya hazır ol
@@ -183,17 +205,19 @@ Sonuç:
 Yol:
   theory_core_concepts.md (ÖNEMLİ!)
   + theory_advanced.md (debug, pratik)
+  + theory_closure.md (self-check!) ⭐
   → Setup → Week 1
 
-Süre: 2-2.5 saat
+Süre: 2.5-3 saat
 
 Neden?
   ✓ Temel formülleri kapat (MLE, MAP)
   ✓ Pratik ipuçlarını al (debug protokolü)
+  ✓ Self-check ile boşluk bul
   ✓ Direkt Week 1'e geç
 
 Sonuç:
-  Hızlı başla ama sağlam temel
+  Hızlı başla ama sağlam temel + özgüven
 ```
 
 ### ⚠️ Önemli Not
