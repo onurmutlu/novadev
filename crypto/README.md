@@ -18,12 +18,20 @@
    📄 docs/crypto_overview.md (8 hafta detay)
    
 3. Week 0 Hızlı Başlangıç
-   📄 crypto/w0_bootstrap/README.md 👉 ŞİMDİ BAŞLA!
+   📄 crypto/w0_bootstrap/README.md ✅ COMPLETE!
    
-4. 🆕 "Hoca Tahtası" Teori Serisi (W0)
-   📄 crypto/docs/w0_bootstrap/README.md ⭐ 10 ders × 25-35 dk
-   📄 crypto/docs/w0_bootstrap/01_tahta_evm_giris.md (Ders 01 hazır)
-   📄 crypto/docs/w0_bootstrap/02-10_*.md (Coming)
+4. 🎓 "Hoca Tahtası" Teori Serisi (W0) ⭐ 10/10 COMPLETE!
+   📄 crypto/docs/w0_bootstrap/README.md (19,005 satır dokümantasyon)
+   📄 crypto/docs/w0_bootstrap/01_tahta_evm_giris.md ✅ (1,277 satır)
+   📄 crypto/docs/w0_bootstrap/02_tahta_rpc_101.md ✅ (1,012 satır)
+   📄 crypto/docs/w0_bootstrap/03_tahta_transfer_anatomi.md ✅ (1,094 satır)
+   📄 crypto/docs/w0_bootstrap/04_tahta_getlogs_pencere_reorg.md ✅ (2,266 satır)
+   📄 crypto/docs/w0_bootstrap/05_tahta_duckdb_idempotent.md ✅ (1,791 satır)
+   📄 crypto/docs/w0_bootstrap/06_tahta_state_resume.md ✅ (2,349 satır)
+   📄 crypto/docs/w0_bootstrap/07_tahta_rapor_json_schema.md ✅ (1,971 satır)
+   📄 crypto/docs/w0_bootstrap/08_tahta_fastapi_mini.md ✅ (2,069 satır)
+   📄 crypto/docs/w0_bootstrap/09_tahta_kalite_ci.md ✅ (2,157 satır)
+   📄 crypto/docs/w0_bootstrap/10_tahta_troubleshoot_runbooks.md ✅ (2,727 satır)
    
 5. Haftalık Klasörler
    📁 crypto/w1_ingest/      (Week 1)
@@ -65,8 +73,8 @@
 
 | Week | Konu | Metrik/DoD |
 |------|------|------------|
-| **0** ✅ | Bootstrap | RPC health<300ms, Capture≥99% |
-| **1** 👉 | Veri Katmanı | /report JSON working |
+| **0** ✅ | Bootstrap + Tahta Serisi (10/10) | RPC health<300ms, Tests 39/39 ✓, Docs 19,005 satır |
+| **1** 👉 | Collector Loop + API Perf | p95<1s, cache hit>70%, error=0% |
 | **2** | Telegram Bot v0 | 2+ meaningful alerts |
 | **3** | Event Classifier | F1≥0.80, Türkçe özet |
 | **4** | Protokol RAG | Sourced responses≥95% |

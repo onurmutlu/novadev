@@ -52,17 +52,25 @@
 - [docs/overview.md](docs/overview.md) - AI hattı derinlemesine
 - [docs/crypto_overview.md](docs/crypto_overview.md) - Crypto hattı derinlemesine
 
-### 📖 Week 0: Teori Temelleri (TAMAMLANDI ✓)
+### 📖 Week 0: Teori Temelleri (✅ TAMAMLANDI)
 **[week0_setup/README.md](week0_setup/README.md)**
 - 7061 satır teori notları (7 döküman, 5 seviye)
 - Self-assessment (theory_closure.md)
 - Setup & verification
 
-### 💻 Week 1: Linear Regression (ŞİMDİ BAŞLA!)
-**[week1_tensors/README.md](week1_tensors/README.md)**
-- 45 dakikalık hızlı sprint
-- 5 günlük detaylı plan
-- Hedef: Val MSE < 0.5
+**[crypto/docs/w0_bootstrap/README.md](crypto/docs/w0_bootstrap/README.md)** ⭐ YENİ!
+- 🎓 "Hoca Tahtası" serisi (10/10 ders tamamlandı)
+- 19,005 satır dokümantasyon (10-12 saat ders)
+- Production-ready kod örnekleri
+- 13 runbook + troubleshooting guide
+- Status: **COMPLETE** ✅
+
+### 💻 Week 1: Linear Regression + Collector (👉 ŞİMDİ BAŞLA!)
+**[WEEK1_MASTER_PLAN.md](WEEK1_MASTER_PLAN.md)** ⭐ YENİ PLAN!
+- 1,248 satır detaylı 5-günlük sprint
+- AI: Val MSE ≤ 0.50 hedefi
+- Crypto: API p95 < 1s hedefi
+- Günlük komutlar + DoD + metrik takibi
 
 ---
 
@@ -96,8 +104,8 @@
 
 | Hafta | AI Hattı | Crypto Hattı | DoD/KPI |
 |-------|----------|--------------|---------|
-| **0** ✅ | Temel Zihin (7061 satır teori) | RPC + Event Ingest | Setup ✓ |
-| **1** 👉 | Linear Regression | Veri Katmanı | AI: MSE<0.5 / Crypto: JSON report |
+| **0** ✅ | Temel Zihin (7061 satır) + Tahta Serisi (19,005 satır) | RPC + Event Ingest + 10 Ders Complete | Setup ✓, Tests 39/39 ✓ |
+| **1** 👉 | Linear Regression | Collector Loop + API Perf | AI: MSE≤0.5 / Crypto: p95<1s |
 | **2** | MLP + MNIST | Telegram Bot v0 | AI: acc≥0.97 / Crypto: 2+ alerts |
 | **3** | NLP (Türkçe BERT) | Event Classifier | AI: F1≥0.85 / Crypto: F1≥0.80 |
 | **4** | RAG Pipeline | Protokol RAG | Recall@k≥60% / Sourced≥95% |
@@ -141,21 +149,21 @@ ruff check .    # Lint
 ### AI Quick Start (30 dk)
 
 ```bash
-# Week 0 teoriyi tamamladın mı?
+# ✅ Week 0 Theory Complete!
 cat week0_setup/theory_closure.md
 
 # Self-check:
-# □ Train/Val/Test farkını biliyorum
-# □ MSE/MAE ne zaman kullanılır biliyorum
-# □ LR semptomlarını tanıyorum
-# □ Overfit/Underfit teşhis edebiliyorum
+# ✓ Train/Val/Test farkını biliyorum
+# ✓ MSE/MAE ne zaman kullanılır biliyorum
+# ✓ LR semptomlarını tanıyorum
+# ✓ Overfit/Underfit teşhis edebiliyorum
 
-# Hepsi ✓ ise Week 1'e başla:
-cd week1_tensors
-cat README.md  # 45 dk hızlı sprint planı
+# 👉 Week 1'e başla (READY!)
+cat WEEK1_MASTER_PLAN.md  # 1,248 satır detaylı 5-günlük sprint
+python week1_tensors/linreg_module.py --lr 0.01 --l2 0.001
 ```
 
-### Crypto Quick Start (30-45 dk)
+### Crypto Quick Start (30-45 dk) ✅ PRODUCTION-READY!
 
 ```bash
 # 1. RPC Provider Setup (Alchemy/Infura)

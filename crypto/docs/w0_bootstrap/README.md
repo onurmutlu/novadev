@@ -20,20 +20,20 @@ Bu seri, **blockchain'i okuyarak** anlamlı bilgi çıkarmayı öğretir:
 
 ## 📚 Ders Listesi (W0 Bootstrap)
 
-| No | Ders | Başlık | Süre | Durum |
-|----|------|--------|------|-------|
-| 01 | [Zinciri Okumak: EVM Veri Modeli](01_tahta_evm_giris.md) | Block→Tx→Log→Event akışı, ERC-20 Transfer anatomisi | 25-35 dk | ✅ |
-| 02 | [JSON-RPC 101](02_tahta_rpc_101.md) | `eth_blockNumber`, `getBlock`, `getLogs` — 3 kritik komut | 25-35 dk | 📝 Coming |
-| 03 | [ERC-20 Transfer Anatomisi](03_tahta_transfer_anatomi.md) | topics/data parçalama, decimals, 3 örnek log çözümleme | 30-40 dk | 📝 Coming |
-| 04 | [getLogs Penceresi + Reorg](04_tahta_getlogs_pencere_reorg.md) | Neden küçük aralık? `safe_latest` mantığı, reorg simülasyonu | 30-40 dk | 📝 Coming |
-| 05 | [DuckDB + İdempotent Yazma](05_tahta_duckdb_idempotent.md) | `UNIQUE(tx_hash,log_index)`, anti-join pattern | 30-40 dk | 📝 Coming |
-| 06 | [State Takibi & Resume](06_tahta_state_resume.md) | `scan_state` tablosu, `last_scanned_block` ile devam | 25-35 dk | 📝 Coming |
-| 07 | [24h Cüzdan Raporu + JSON Schema](07_tahta_rapor_json_schema.md) | Rapor formatı, schema validation, `report_v1.json` | 30-40 dk | 📝 Coming |
-| 08 | [Mini FastAPI Servisi](08_tahta_fastapi_mini.md) | `/wallet/{addr}/report` endpoint, p95 ölçümü | 30-40 dk | 📝 Coming |
-| 09 | [Kalite & CI](09_tahta_kalite_ci.md) | Makefile, CI workflows, schema check | 25-35 dk | 📝 Coming |
-| 10 | [Sorun Giderme](10_tahta_troubleshoot.md) | En sık 10 hata ve çözümü, kontrol listeleri | 20-30 dk | 📝 Coming |
+| No | Ders | Başlık | Süre | Satır | Durum |
+|----|------|--------|------|------|-------|
+| 01 | [Zinciri Okumak: EVM Veri Modeli](01_tahta_evm_giris.md) | Block→Tx→Log→Event akışı, ERC-20 Transfer anatomisi | 60-75 dk | 1,277 | ✅ |
+| 02 | [JSON-RPC 101](02_tahta_rpc_101.md) | `eth_blockNumber`, `getBlock`, `getLogs` — 3 kritik komut | 40-50 dk | 1,012 | ✅ |
+| 03 | [ERC-20 Transfer Anatomisi](03_tahta_transfer_anatomi.md) | topics/data parçalama, decimals, 3 örnek log çözümleme | 50-60 dk | 1,094 | ✅ |
+| 04 | [getLogs Penceresi + Reorg](04_tahta_getlogs_pencere_reorg.md) | Neden küçük aralık? `safe_latest` mantığı, reorg simülasyonu | 60-75 dk | 2,266 | ✅ |
+| 05 | [DuckDB + İdempotent Yazma](05_tahta_duckdb_idempotent.md) | `UNIQUE(tx_hash,log_index)`, anti-join pattern | 60-75 dk | 1,791 | ✅ |
+| 06 | [State Takibi & Resume](06_tahta_state_resume.md) | `scan_state` tablosu, `last_scanned_block` ile devam | 60-75 dk | 2,349 | ✅ |
+| 07 | [24h Cüzdan Raporu + JSON Schema](07_tahta_rapor_json_schema.md) | Rapor formatı, schema validation, `report_v1.json` | 60-75 dk | 1,971 | ✅ |
+| 08 | [Mini FastAPI Servisi](08_tahta_fastapi_mini.md) | `/wallet/{addr}/report` endpoint, p95 ölçümü | 60-75 dk | 2,069 | ✅ |
+| 09 | [Kalite & CI](09_tahta_kalite_ci.md) | Makefile, CI workflows, schema check | 60-75 dk | 2,157 | ✅ |
+| 10 | [Troubleshooting & Runbooks](10_tahta_troubleshoot_runbooks.md) | 13 runbook, triage matrix, golden signals, DR | 60-75 dk | 2,727 | ✅ |
 
-**Toplam:** ~280-350 dakika (4.5-6 saat teori)
+**Toplam:** 10 ders, 19,005 satır, 10-12 saat ders ✅ **COMPLETE!**
 
 ---
 
