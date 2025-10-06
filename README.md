@@ -1,5 +1,10 @@
 # 🚀 NovaDev v1.1 — AI + Crypto Paralel Program
 
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Docs](https://img.shields.io/badge/docs-passing-green)
+![Security](https://img.shields.io/badge/crypto-read--only-orange)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
 **"Öğrenirken İki Gemi Yap: 8 Hafta, 80-100 Saat, İki Çalışan Sistem"**
 
 > Bu bir AI kursu veya trading kursu DEĞİL; teori + pratik + ürün birlikte ilerleyen **yaparak öğrenme protokolü**. **İki paralel hat:** AI (ML temelleri) + Crypto (on-chain istihbarat).

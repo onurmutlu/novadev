@@ -16,8 +16,12 @@
 
 **Definition of Done:**
 - ✅ `rpc_health.py` → "RPC OK"
-- ✅ `capture_transfers.py` → DuckDB'ye kayıt
-- ✅ `report_v0.py` → 24h özet
+- ✅ `capture_transfers.py` → DuckDB'ye kayıt (basic)
+- ✅ `capture_transfers_idempotent.py` → İdempotent ingest + state tracking
+- ✅ `report_v0.py` → 24h özet (CLI pretty print)
+- ✅ `report_json.py` → JSON format (API-ready)
+- ✅ `validate_report.py` → JSON schema validation
+- ✅ FastAPI service → `/wallet/{addr}/report` endpoint
 
 ---
 
@@ -311,14 +315,37 @@ git commit -m "W1: AI MSE=0.42 ✓, Crypto collector running ✓"
 
 ```
 crypto/w0_bootstrap/
-├── README.md              (bu dosya)
-├── .env.example           Config template
-├── .env                   (Git'e GİRMEZ)
-├── rpc_health.py          RPC check
-├── capture_transfers.py   Event ingest
-├── report_v0.py           Wallet raporu
-└── onchain.duckdb         (otomatik oluşur)
+├── README.md                           (bu dosya)
+├── .env.example                        Config template
+├── .env                                (Git'e GİRMEZ)
+│
+├── rpc_health.py                       RPC check
+├── capture_transfers.py                Event ingest (basic)
+├── capture_transfers_idempotent.py     ⭐ Idempotent ingest + state
+├── report_v0.py                        Wallet report (CLI pretty)
+├── report_json.py                      ⭐ Wallet report (JSON)
+├── validate_report.py                  ⭐ JSON schema validator
+│
+└── onchain.duckdb                      (otomatik oluşur)
+    ├── transfers (table)
+    └── scan_state (table)              ⭐ State tracking
 ```
+
+**Yeni Özellikler (v1.1):**
+- ⭐ `capture_transfers_idempotent.py`: Production-ready ingest
+  - State tracking (resume from last block)
+  - Reorg protection (CONFIRMATIONS buffer)
+  - Anti-join pattern (no duplicates)
+  
+- ⭐ `report_json.py`: JSON output for API
+  
+- ⭐ `validate_report.py`: JSON schema validation
+  - Schema: `schemas/report_v1.json`
+  
+- ⭐ FastAPI service: `crypto/service/app.py`
+  - `/healthz`, `/wallet/{addr}/report`
+  
+- ⭐ Makefile shortcuts: `make c.health`, `make c.capture.idem`, etc.
 
 ---
 

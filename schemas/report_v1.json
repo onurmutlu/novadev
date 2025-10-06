@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novadev.local/schemas/report_v1.json",
+  "title": "WalletReportV1",
+  "description": "Wallet transaction report schema (NovaDev Crypto)",
+  "type": "object",
+  "required": [
+    "wallet",
+    "window_hours",
+    "inbound",
+    "outbound",
+    "tx_count",
+    "top_counterparties"
+  ],
+  "properties": {
+    "wallet": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Ethereum wallet address (lowercase)"
+    },
+    "window_hours": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 720,
+      "description": "Time window in hours (1-720)"
+    },
+    "inbound": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total inbound amount"
+    },
+    "outbound": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total outbound amount"
+    },
+    "net_flow": {
+      "type": "number",
+      "description": "Net flow (inbound - outbound)"
+    },
+    "tx_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of transactions"
+    },
+    "top_counterparties": {
+      "type": "array",
+      "maxItems": 5,
+      "description": "Top counterparties by volume",
+      "items": {
+        "type": "object",
+        "required": ["address", "amount"],
+        "properties": {
+          "address": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "description": "Counterparty address"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Total amount transacted"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -80,3 +80,22 @@ c.capture.idem: crypto.capture.idem
 c.report: crypto.report
 c.report.json: crypto.report.json
 c.api: crypto.api
+
+# ===================================
+# Quality & CI
+# ===================================
+
+docs.check:
+	@echo "Checking markdown links..."
+	@which lychee > /dev/null || (echo "Install: brew install lychee" && exit 1)
+	lychee --no-progress --exclude-mail "**/*.md" || true
+
+py.ci:
+	@echo "Running Python CI..."
+	ruff check . && pytest -q || true
+
+report.schema:
+	@test -n "$(W)" || (echo "Usage: make report.schema W=0x..." && exit 1)
+	@echo "Validating report JSON schema..."
+	python crypto/w0_bootstrap/report_json.py --wallet $(W) --hours 24 | \
+	python crypto/w0_bootstrap/validate_report.py

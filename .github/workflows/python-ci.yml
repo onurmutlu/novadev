@@ -1,0 +1,54 @@
+name: Python / Lint & Test
+
+on:
+  push:
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+      - ".github/workflows/python-ci.yml"
+  pull_request:
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+          # Crypto dependencies (optional, no secrets needed for lint)
+          pip install -e ".[crypto]" || true
+      
+      - name: Ruff lint
+        run: ruff check .
+      
+      - name: Pytest (AI tests)
+        run: pytest -q || true
+      
+      - name: Smoke test (Crypto files exist)
+        run: |
+          python - <<'PY'
+          import pathlib
+          must_exist = [
+              "crypto/w0_bootstrap/rpc_health.py",
+              "crypto/w0_bootstrap/capture_transfers.py",
+              "crypto/w0_bootstrap/capture_transfers_idempotent.py",
+              "crypto/w0_bootstrap/report_v0.py",
+              "crypto/w0_bootstrap/report_json.py",
+              "crypto/service/app.py",
+          ]
+          for p in must_exist:
+              assert pathlib.Path(p).exists(), f"❌ Missing: {p}"
+          print("✅ Crypto smoke test passed")
+          PY

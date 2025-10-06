@@ -1,0 +1,10 @@
+{
+  "default": true,
+  "line-length": false,
+  "no-duplicate-heading": false,
+  "no-trailing-punctuation": {
+    "punctuation": ".,;:"
+  },
+  "no-inline-html": false,
+  "no-bare-urls": false
+}
