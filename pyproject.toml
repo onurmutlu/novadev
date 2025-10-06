@@ -84,11 +84,20 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
+markers = [
+    "unit: Unit tests (fast, isolated)",
+    "integration: Integration tests (multi-component)",
+    "contract: Contract tests (schema validation)",
+    "api: API endpoint tests",
+    "performance: Performance tests (slow)",
+    "slow: Slow tests (> 1s)",
+]
 addopts = [
     "--verbose",
     "--cov=.",
     "--cov-report=term-missing",
     "--cov-report=html",
+    "--strict-markers",
 ]
 
 [tool.coverage.run]
