@@ -23,11 +23,17 @@
 ## 📚 Dökümantasyon
 
 ### 🗺️ Genel Bakış
-**[docs/overview.md](docs/overview.md)** ⭐ ÖNCE OKU!
+**[docs/overview.md](docs/overview.md)** ⭐ AI Hattı - ÖNCE OKU!
 - Program mimarisi (3 hat: Teori/Pratik/Ürün)
 - 8 haftalık syllabus detayları
 - Gating criteria (metrik eşikleri)
 - SSS & troubleshooting
+
+**[docs/crypto_overview.md](docs/crypto_overview.md)** 🔗 Crypto Hattı - YENİ!
+- On-Chain Intel Copilot
+- Read-only, paper trading
+- 8 haftalık paralel roadmap
+- Security & compliance
 
 ### 📖 Week 0: Teori Temelleri (TAMAMLANDI ✓)
 **[week0_setup/README.md](week0_setup/README.md)**
