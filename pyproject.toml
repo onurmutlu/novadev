@@ -44,6 +44,12 @@ lora = [
     "bitsandbytes>=0.43.0",  # QLoRA için (M3'te çalışmayabilir)
     "accelerate>=0.27.0",
 ]
+crypto = [
+    "web3>=6.0.0",
+    "requests>=2.31.0",
+    "duckdb>=1.0.0",
+    "python-dotenv>=1.0.0",
+]
 
 [build-system]
 requires = ["setuptools>=61.0"]
