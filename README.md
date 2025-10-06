@@ -1,39 +1,51 @@
-# 🚀 NovaDev v1.0 — "Öğrenirken Gemi Yapan" Program
+# 🚀 NovaDev v1.1 — AI + Crypto Paralel Program
 
-**0→Production: 8 Hafta, 80-100 Saat, Çalışan AI Sistemi**
+**"Öğrenirken İki Gemi Yap: 8 Hafta, 80-100 Saat, İki Çalışan Sistem"**
 
-> Bu bir AI kursu değil; teori + pratik + ürün birlikte ilerleyen **yaparak öğrenme protokolü**.
+> Bu bir AI kursu veya trading kursu DEĞİL; teori + pratik + ürün birlikte ilerleyen **yaparak öğrenme protokolü**. **İki paralel hat:** AI (ML temelleri) + Crypto (on-chain istihbarat).
+
+**⚠️ Yasal Uyarı:** Crypto hattı bilgilendirme amaçlıdır, finansal tavsiye değildir. Read-only, testnet-first.
 
 ---
 
 ## 🎯 Amaç
 
-**ML zihni kur + Uçtan uca AI servisini çalışır halde yayına al**
+**8 Haftada İki Sistem:**
 
-**Çıktılar:**
-- ✅ Mini-modeller (Linear regression, MLP, BERT)
-- ✅ RAG + Tool-Agent prototipi
-- ✅ FastAPI servis (Docker deployment)
+### 1️⃣ AI Hattı
+- ✅ ML temelleri (Linear regression → MLP → NLP)
+- ✅ RAG (dokümandan kaynaklı yanıt)
+- ✅ Tool-Agent (araç çağırma)
+- ✅ FastAPI servis
+
+### 2️⃣ Crypto Hattı
+- ✅ On-Chain Intel Copilot (read-only)
+- ✅ Event collector + DuckDB
+- ✅ Telegram uyarı botu
+- ✅ Protokol RAG + simülasyon
+
+### Entegre Çıktı
+- ✅ FastAPI (AI + Crypto endpoints)
+- ✅ Docker Compose deployment
 - ✅ 5 dakikalık capstone demo
 
-**Başarı Kriteri:** _"Aynısını yarın tek başına kurabilir misin?" → **EVET**_
+**Başarı Kriteri:** _"Aynı iki sistemi yarın tek başına kurabilir misin?" → **EVET**_
 
 ---
 
 ## 📚 Dökümantasyon
 
 ### 🗺️ Genel Bakış
-**[docs/overview.md](docs/overview.md)** ⭐ AI Hattı - ÖNCE OKU!
-- Program mimarisi (3 hat: Teori/Pratik/Ürün)
-- 8 haftalık syllabus detayları
-- Gating criteria (metrik eşikleri)
-- SSS & troubleshooting
+**[docs/program_overview.md](docs/program_overview.md)** ⭐⭐⭐ ÖNCE OKU!
+- **AI + Crypto Paralel Program** (tam syllabus)
+- T→P→X ritmi (Teori/Pratik/Ürün)
+- 8 haftalık detaylı plan (her hafta DoD/KPI)
+- Güvenlik ilkeleri & rapor disiplini
+- Haftalık komut planları
 
-**[docs/crypto_overview.md](docs/crypto_overview.md)** 🔗 Crypto Hattı - YENİ!
-- On-Chain Intel Copilot
-- Read-only, paper trading
-- 8 haftalık paralel roadmap
-- Security & compliance
+**Ek Detaylar:**
+- [docs/overview.md](docs/overview.md) - AI hattı derinlemesine
+- [docs/crypto_overview.md](docs/crypto_overview.md) - Crypto hattı derinlemesine
 
 ### 📖 Week 0: Teori Temelleri (TAMAMLANDI ✓)
 **[week0_setup/README.md](week0_setup/README.md)**
@@ -75,21 +87,21 @@
 
 ---
 
-## 🗺️ 8 Haftalık Roadmap
+## 🗺️ 8 Haftalık Roadmap (AI + Crypto Paralel)
 
-| Hafta | Konu | Metrik Eşiği | Çıktı |
-|-------|------|--------------|-------|
-| **0** ✅ | Temel Zihin | Setup complete | 7061 satır teori + MPS test |
-| **1** 👉 | Linear Regression | Val MSE < 0.5 | Loss curves + ablation |
-| **2** | MLP + MNIST | Test acc ≥ 0.97 | Confusion matrix |
-| **3** | NLP (Türkçe BERT) | F1 ≥ 0.85 | Error analysis |
-| **4** | RAG Pipeline | Recall@k ≥ 60% | CLI tool |
-| **5** | Tool-Agent | 2-step chain | Agent logs |
-| **6** | LoRA Fine-tune | Qualitative+ | Before/after |
-| **7** | FastAPI Servis | p95 < 2.5s | Docker deploy |
-| **8** | Capstone | 3 soru akışı | 5 dk video |
+| Hafta | AI Hattı | Crypto Hattı | DoD/KPI |
+|-------|----------|--------------|---------|
+| **0** ✅ | Temel Zihin (7061 satır teori) | RPC + Event Ingest | Setup ✓ |
+| **1** 👉 | Linear Regression | Veri Katmanı | AI: MSE<0.5 / Crypto: JSON report |
+| **2** | MLP + MNIST | Telegram Bot v0 | AI: acc≥0.97 / Crypto: 2+ alerts |
+| **3** | NLP (Türkçe BERT) | Event Classifier | AI: F1≥0.85 / Crypto: F1≥0.80 |
+| **4** | RAG Pipeline | Protokol RAG | Recall@k≥60% / Sourced≥95% |
+| **5** | Tool-Agent | Simülasyon | 2-step chain / Quote<2s |
+| **6** | LoRA Fine-tune | Üslup Uyarlama | A/B≥60% / Citation≥95% |
+| **7** | FastAPI Entegre | Servis + İzleme | p95<2.5s, error<1% |
+| **8** | Capstone E2E | 3 Scenario Demo | 5dk video + setup<10dk |
 
-**Detay:** [docs/overview.md](docs/overview.md)
+**Detay:** [docs/program_overview.md](docs/program_overview.md) ⭐ TAM SYLLABUS
 
 ---
 

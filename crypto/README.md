@@ -1,417 +1,232 @@
-# 🔗 Crypto Week 0 — Kurulum & Sağlık Kontrolü
+# 🔗 NovaDev Crypto — On-Chain Intel Copilot
 
-**Hedef:** RPC bağlantısı + Event yakalama + Wallet raporu v0 (30-45 dk)
+**"Okuyan, Anlayan, Uyarı Veren, Simüle Eden"**
 
----
+> Bu bir trading sinyal kursu DEĞİL; güvenli, read-only, paper-trading odaklı **On-Chain Intelligence** sistemi.
 
-## 🎯 Week 0 Hedefleri
-
-```
-□ RPC sağlayıcı hesabı (Alchemy/Infura)
-□ Sepolia testnet cüzdan
-□ .env configurasyonu
-□ RPC health check (< 300ms)
-□ Transfer event capture (son 100 blok)
-□ DuckDB schema + test query
-□ Wallet report v0 (JSON)
-```
-
-**Definition of Done:**
-- ✅ RPC health: < 300ms
-- ✅ Event capture rate: ≥ 99%
-- ✅ /report skeleton çalışıyor
+**⚠️ Yasal Uyarı:** Bu sistem bilgilendirme amaçlıdır, finansal tavsiye değildir. DYOR (Do Your Own Research).
 
 ---
 
-## 📦 Gereksinimler
+## 📚 Dökümantasyon Hiyerarşisi
 
-### Python Packages
+```
+1. Program Genel Bakış (AI + Crypto Paralel)
+   📄 docs/program_overview.md ⭐⭐⭐ ÖNCE OKU!
+   
+2. Crypto Detaylı Roadmap
+   📄 docs/crypto_overview.md (8 hafta detay)
+   
+3. Week 0 Hızlı Başlangıç
+   📄 crypto/w0_bootstrap/README.md 👉 ŞİMDİ BAŞLA!
+   
+4. Haftalık Klasörler
+   📁 crypto/w1_ingest/      (Week 1)
+   📁 crypto/w2_telegram/    (Week 2)
+   ...
+```
 
+**İlk Adım:** [w0_bootstrap/README.md](w0_bootstrap/README.md) → 30-45 dk setup
+
+---
+
+## 🎯 Crypto Hattı Özeti
+
+### Hedef (8 Hafta Sonunda)
+```
+✓ On-chain veri toplayıcı (EVM, read-only)
+✓ DuckDB depolama + analytics
+✓ Cüzdan raporu (24h, 7d, custom)
+✓ Telegram uyarı botu (eşik + etiketleme)
+✓ Event classifier (Swap/Mint/Bridge/etc)
+✓ Protokol RAG (kaynaklı açıklama)
+✓ Simülasyon araçları (quote, gas, risk)
+✓ FastAPI servis (/wallet, /alerts, /simulate)
+```
+
+### Güvenlik İlkeleri (Non-Negotiable)
+```
+❌ Private key YOK
+❌ Custody YOK
+❌ Auto-execute YOK
+✅ Read-only RPC
+✅ Testnet (Sepolia) first
+✅ Paper trading / simulation only
+```
+
+---
+
+## 🗺️ 8 Haftalık Roadmap (Crypto Hattı)
+
+| Week | Konu | Metrik/DoD |
+|------|------|------------|
+| **0** ✅ | Bootstrap | RPC health<300ms, Capture≥99% |
+| **1** 👉 | Veri Katmanı | /report JSON working |
+| **2** | Telegram Bot v0 | 2+ meaningful alerts |
+| **3** | Event Classifier | F1≥0.80, Türkçe özet |
+| **4** | Protokol RAG | Sourced responses≥95% |
+| **5** | Simülasyon | Quote<2s, Risk check |
+| **6** | Üslup Uyarlama | Citation≥95% |
+| **7** | Servis + İzleme | p95<2.5s, error<1% |
+| **8** | Capstone | 3 scenario demo |
+
+**Detay:** [docs/crypto_overview.md](../docs/crypto_overview.md)
+
+---
+
+## 🚀 Hızlı Başlangıç (Week 0)
+
+### 1. Dependencies (5 dk)
 ```bash
-# Core
-pip install web3>=6.0.0
-pip install eth-abi eth-utils
-
-# Database
-pip install duckdb>=0.9.0
-
-# API (Week 1+)
-pip install fastapi uvicorn
-pip install python-telegram-bot
-pip install aiohttp
-
-# Optional
-pip install python-dotenv
+cd /Users/onur/code/novadev-protocol
+pip install -e ".[crypto]"
 ```
 
-### External Services
-
-```
-1. RPC Provider (birini seç):
-   □ Alchemy  (alchemy.com) - Free: 3M compute units/month
-   □ Infura   (infura.io)   - Free: 100k requests/day
-   □ Ankr     (ankr.com)    - Public endpoints (rate limited)
-
-2. Testnet Faucet:
-   □ Sepolia: faucet.sepolia.dev
-   □ Sepolia ETH: sepoliafaucet.com
-
-3. Telegram (Week 2+):
-   □ BotFather (@BotFather) - create bot
-```
-
----
-
-## 🚀 Kurulum (Adım Adım)
-
-### 1. RPC Sağlayıcı (Alchemy Örnek - 5 dk)
-
+### 2. RPC Provider (5 dk)
 ```bash
-# 1. Alchemy'ye kayıt ol
+# Alchemy'ye kayıt (önerilen)
 # https://dashboard.alchemy.com
-
-# 2. "Create App" tıkla
-# - Name: NovaDev Sepolia
-# - Chain: Ethereum
-# - Network: Sepolia
-
-# 3. "View Key" → HTTPS URL'ini kopyala
-# https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
+# "Create App" → Sepolia
+# API Key kopyala
 ```
 
-**Alternatif (Infura):**
+### 3. Setup (5 dk)
 ```bash
-# 1. infura.io → kayıt
-# 2. Create Project → Sepolia
-# 3. URL kopyala
-# https://sepolia.infura.io/v3/YOUR_PROJECT_ID
-```
-
----
-
-### 2. .env Dosyası (5 dk)
-
-```bash
-# crypto/.env oluştur
-cd /Users/onur/code/novadev-protocol/crypto
+cd crypto/w0_bootstrap
 cp .env.example .env
+# vim .env → RPC_URL ekle
 ```
 
-**crypto/.env içeriği:**
+### 4. Test (15 dk)
 ```bash
-# RPC Configuration
-RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
-CHAIN_ID=11155111
-NETWORK_NAME=Sepolia
+# Health check
+python rpc_health.py
 
-# Wallet (read-only, monitoring için)
-WATCH_WALLET=0x0000000000000000000000000000000000000000
+# Event capture
+python capture_transfers.py --blocks 5000
 
-# Database
-DB_PATH=db/crypto.db
-
-# Telegram (Week 2+)
-# TELEGRAM_BOT_TOKEN=your_token_here
-# TELEGRAM_CHAT_ID=your_chat_id
-
-# API Keys (Week 4+)
-# COINGECKO_API_KEY=
-# ZERO_X_API_KEY=
-
-# Rate Limiting
-RPC_MAX_CALLS_PER_SECOND=10
-POLL_INTERVAL_SECONDS=30
-
-# Logging
-LOG_LEVEL=INFO
+# Wallet report
+python report_v0.py --wallet 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
 ```
 
-**Güvenlik:**
-```bash
-# .env dosyası Git'e GİRMEZ
-echo "crypto/.env" >> ../.gitignore
+**Detaylı Adımlar:** [w0_bootstrap/README.md](w0_bootstrap/README.md)
+
+---
+
+## 🔧 Tech Stack
+
+### Blockchain
+```
+EVM (Ethereum Virtual Machine)
+  - Testnet: Sepolia (Week 0-1)
+  - Mainnet: Ethereum (Week 2+, read-only)
+  - L2: Base, Arbitrum (future)
+```
+
+### RPC Providers
+```
+Alchemy   → Generous free tier
+Infura    → Reliable, WebSocket support
+Ankr      → Public endpoints (rate limited)
+```
+
+### Libraries
+```
+Python:
+  - web3.py (Ethereum interaction)
+  - duckdb (analytics DB)
+  - requests (HTTP/API)
+  - python-telegram-bot (Week 2+)
+```
+
+### APIs
+```
+Price Feeds:
+  - CoinGecko (free, 50 calls/min)
+  - Binance API (real-time)
+
+DEX Aggregators:
+  - 0x API (quote simulation)
+  - 1inch API
+
+Security:
+  - Honeypot.is (rug check)
+  - Token Sniffer
+```
+
+### Database
+```
+DuckDB:
+  - OLAP (analytics-first)
+  - Embedded (no server)
+  - Fast time-series queries
+  - SQL interface
+
+Schema:
+  - transfers (block, tx, from, to, value, token)
+  - swaps (pool, token_in, token_out, amounts)
+  - balances (wallet, token, balance, timestamp)
+  - prices (token, price_usd, timestamp)
+  - alerts (type, wallet, description, status)
 ```
 
 ---
 
-### 3. Testnet Cüzdan (5 dk)
+## 📊 Klasör Yapısı
 
-**Opsiyonel** (Week 0'da gerekmez, ama hazırlayalım)
-
-```bash
-# Yöntem 1: Metamask
-# 1. Metamask yükle
-# 2. Network: Sepolia ekle
-# 3. Address kopyala
-
-# Yöntem 2: CLI (eth-account)
-pip install eth-account
-python -c "from eth_account import Account; acc = Account.create(); print(f'Address: {acc.address}\nPrivate: {acc.key.hex()}')"
-
-# ⚠️ Private key'i .env'e YAZMA (Week 0'da gerekmez)
 ```
-
-**Test ETH Al:**
-```bash
-# Faucet: sepoliafaucet.com
-# Address'ini yapıştır → "Send Me ETH"
-# 0.5 ETH gelecek (testnet)
-```
-
----
-
-### 4. DuckDB Schema (5 dk)
-
-```bash
-# Schema oluştur
-cd /Users/onur/code/novadev-protocol/crypto
-duckdb db/crypto.db < db/schema.sql
-
-# Test query
-duckdb db/crypto.db -c "SELECT name FROM sqlite_master WHERE type='table';"
-```
-
-**Beklenen output:**
-```
-transfers
-swaps
-balances
-prices
-```
-
----
-
-### 5. RPC Health Check (5 dk)
-
-```bash
-# Test script
-cd /Users/onur/code/novadev-protocol/crypto
-python collector/rpc_health.py
-```
-
-**Beklenen output:**
-```
-=== RPC Health Check ===
-RPC URL: https://eth-sepolia.g.alchemy.com/v2/...
-Network: Sepolia (11155111)
-
-[✓] Connection OK
-[✓] Latest block: 12345678
-[✓] Latency: 145ms (< 300ms) ✓
-[✓] Chain ID: 11155111 ✓
-
-Status: HEALTHY ✓
-```
-
-**Sorun giderleri:**
-```bash
-# Hata: "HTTPError 401"
-# → .env'de RPC_URL yanlış/eksik
-
-# Hata: "Timeout"
-# → RPC provider down / network issue
-
-# Hata: "Wrong chain_id"
-# → .env'de CHAIN_ID yanlış (Sepolia = 11155111)
-```
-
----
-
-### 6. Event Capture Test (10 dk)
-
-```bash
-# Transfer event'lerini yakala
-python collector/event_capture.py --blocks 100
-```
-
-**Beklenen output:**
-```
-=== Event Capture Test ===
-Scanning last 100 blocks...
-
-Block range: 12345578 → 12345678
-Filter: Transfer(address,address,uint256)
-
-[✓] Block 12345578: 3 transfers
-[✓] Block 12345579: 1 transfer
-...
-[✓] Block 12345678: 2 transfers
-
-Total: 156 transfers captured
-Capture rate: 100% (156/156)
-Avg block time: 12.1s
-
-Status: OK ✓
-```
-
-**Ne yapıyor?**
-```python
-# Pseudo-code
-for block in latest_100_blocks:
-    events = get_logs(
-        from_block=block,
-        to_block=block,
-        topics=[TRANSFER_EVENT_SIGNATURE]
-    )
-    for event in events:
-        parse_and_store(event)
-```
-
----
-
-### 7. Database Test (5 dk)
-
-```bash
-# DuckDB connection test
-duckdb db/crypto.db
-
-# SQL prompt açılacak:
-```
-
-**Test queries:**
-```sql
--- Tablo sayısı
-SELECT COUNT(*) FROM information_schema.tables;
-
--- Transfer tablosu (henüz boş)
-SELECT COUNT(*) FROM transfers;
-
--- Test insert
-INSERT INTO transfers (
-    block_number, tx_hash, from_addr, to_addr, value, token_addr
-) VALUES (
-    12345678,
-    '0xabc...',
-    '0xsender...',
-    '0xreceiver...',
-    1000000000000000000,  -- 1 ETH (wei)
-    '0x0000000000000000000000000000000000000000'  -- ETH
-);
-
--- Verify
-SELECT * FROM transfers LIMIT 1;
-
--- Clean up test
-DELETE FROM transfers WHERE tx_hash = '0xabc...';
-
--- Exit
-.quit
-```
-
-**Beklenen:**
-```
-Insert: 1 row affected
-Select: 1 row returned
-Delete: 1 row affected
-```
-
----
-
-### 8. Wallet Report v0 (10 dk)
-
-```bash
-# Wallet raporu oluştur
-python -m crypto.api.wallet_report --address 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
-```
-
-**Beklenen output (JSON):**
-```json
-{
-  "wallet": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-  "network": "Sepolia",
-  "period": "24h",
-  "summary": {
-    "inbound": {
-      "count": 12,
-      "total_eth": 0.45,
-      "total_usd": 780.50
-    },
-    "outbound": {
-      "count": 8,
-      "total_eth": 0.32,
-      "total_usd": 550.20
-    },
-    "net_flow": {
-      "eth": 0.13,
-      "usd": 230.30
-    }
-  },
-  "top_counterparties": [
-    {
-      "address": "0xabc...",
-      "label": "Uniswap V3: Router",
-      "interactions": 5
-    },
-    {
-      "address": "0xdef...",
-      "label": "Unknown",
-      "interactions": 3
-    }
-  ],
-  "timestamp": "2025-10-06T12:34:56Z"
-}
-```
-
-**Ne yapıyor?**
-```python
-# Pseudo-code
-def wallet_report(address, period="24h"):
-    # 1. Son 24h transfer'leri çek
-    transfers = db.query(
-        "SELECT * FROM transfers 
-         WHERE (from_addr = ? OR to_addr = ?)
-         AND timestamp > NOW() - INTERVAL 24 HOURS",
-        address, address
-    )
-    
-    # 2. Inbound/outbound topla
-    inbound = [t for t in transfers if t.to_addr == address]
-    outbound = [t for t in transfers if t.from_addr == address]
-    
-    # 3. USD hesapla (price feed)
-    prices = get_prices(['ETH', 'USDT', ...])
-    
-    # 4. Top counterparties
-    counterparties = Counter(
-        t.from_addr if t.to_addr == address else t.to_addr
-        for t in transfers
-    ).most_common(3)
-    
-    # 5. JSON döndür
-    return {
-        "wallet": address,
-        "summary": {...},
-        "top_counterparties": [...]
-    }
-```
-
----
-
-## ✅ Week 0 Checklist
-
-```bash
-# Hepsini tek komutla test et
-cd /Users/onur/code/novadev-protocol/crypto
-python scripts/week0_check.py
-```
-
-**Beklenen output:**
-```
-=== NovaDev Crypto Week 0 Check ===
-
-[✓] .env file exists
-[✓] RPC_URL configured
-[✓] RPC connection OK (latency: 145ms)
-[✓] DuckDB schema loaded (4 tables)
-[✓] Event capture test passed (156 events)
-[✓] Wallet report skeleton works
-
-Status: Week 0 COMPLETE ✓
-
-Next: Week 1 (On-Chain Data Layer)
-  - Event collector loop (30s polling)
-  - Price feeds integration
-  - Wallet report v1 (24h net flow)
+crypto/
+├── README.md                    (bu dosya - genel bakış)
+│
+├── w0_bootstrap/                ✅ Week 0 (30-45 dk setup)
+│   ├── README.md
+│   ├── .env.example
+│   ├── rpc_health.py
+│   ├── capture_transfers.py
+│   └── report_v0.py
+│
+├── w1_ingest/                   Week 1 (veri katmanı)
+│   ├── README.md
+│   ├── capture_swaps.py
+│   ├── price_fetcher.py
+│   ├── report.py
+│   └── collector_loop.py
+│
+├── w2_telegram/                 Week 2 (uyarı botu)
+│   ├── README.md
+│   ├── bot.py
+│   ├── alert_engine.py
+│   └── templates.py
+│
+├── w3_classifier/               Week 3 (event sınıflama)
+│   ├── README.md
+│   ├── classifier.py
+│   └── summarizer.py
+│
+├── w4_rag/                      Week 4 (protokol RAG)
+│   ├── README.md
+│   ├── indexer.py
+│   └── retriever.py
+│
+├── w5_simulation/               Week 5 (quote + risk)
+│   ├── README.md
+│   ├── tools.py
+│   └── agent.py
+│
+├── w6_lora/                     Week 6 (üslup)
+│   ├── README.md
+│   └── train_lora.py
+│
+├── w7_service/                  Week 7 (FastAPI)
+│   ├── README.md
+│   ├── main.py
+│   ├── routes/
+│   └── docker-compose.yml
+│
+└── w8_capstone/                 Week 8 (demo)
+    ├── README.md
+    ├── demo.py
+    └── REPORT.md
 ```
 
 ---
@@ -420,112 +235,202 @@ Next: Week 1 (On-Chain Data Layer)
 
 ### RPC Issues
 
-**Problem: 429 Rate Limit**
-```bash
-# Çözüm 1: Daha yavaş poll et
-# .env → POLL_INTERVAL_SECONDS=60
-
-# Çözüm 2: Farklı RPC provider
-# Ankr public endpoint (slower but free)
-RPC_URL=https://rpc.ankr.com/eth_sepolia
+**Problem: Rate limit (429)**
+```
+Çözüm:
+1. .env'de farklı RPC provider
+2. Polling interval artır (30s → 60s)
+3. Cache TTL uzat (1 min → 5 min)
 ```
 
-**Problem: Timeout**
-```bash
-# Teşhis
-curl -X POST $RPC_URL \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
+**Problem: Slow response (> 1s)**
+```
+Teşhis:
+- RPC provider latency?
+- Network congestion?
 
-# Eğer cevap gelmiyorsa → RPC down
-# Fallback RPC ekle
+Çözüm:
+- Archive node → full node
+- Batch requests
+- Fallback provider
 ```
 
 ### Event Capture
 
-**Problem: 0 events captured**
-```bash
-# Teşhis 1: Block range çok dar?
-# Son 1000 blok dene:
-python collector/event_capture.py --blocks 1000
+**Problem: Eksik event**
+```
+Teşhis:
+- Block range too wide?
+- Filter too specific?
+- Reorg (chain reorganization)?
 
-# Teşhis 2: Filter yanlış?
-# Tüm logları al (filtre yok):
-python collector/event_capture.py --no-filter
-
-# Teşhis 3: Testnet'te aktivite az?
-# Mainnet'e geç (okuma sadece):
-RPC_URL=https://eth-mainnet.g.alchemy.com/v2/...
+Çözüm:
+- Smaller block batches (100 → 10)
+- Broader filter (all Transfer events)
+- Finality confirmation (12+ blocks)
 ```
 
 ### Database
 
 **Problem: DuckDB file locked**
-```bash
-# Birden fazla process aynı DB'yi yazıyor
-
-# Çözüm: Sadece 1 writer
-# collector → write
-# api → read-only
-
-# DuckDB connection string:
-# read-only mode
-conn = duckdb.connect('db/crypto.db', read_only=True)
+```
+Çözüm:
+- Tek writer process (collector)
+- Read-only connections (API)
+- WAL mode
 ```
 
 ---
 
 ## 📚 Kaynaklar
 
-**RPC Providers:**
-- [Alchemy Docs](https://docs.alchemy.com)
-- [Infura Docs](https://docs.infura.io)
-- [Ankr RPC](https://www.ankr.com/rpc/)
+### Official Docs
+```
+Ethereum:
+  - ethereum.org/developers
+  - EIP proposals
 
-**Web3.py:**
-- [Quickstart](https://web3py.readthedocs.io/en/stable/quickstart.html)
-- [Event Logs](https://web3py.readthedocs.io/en/stable/web3.eth.html#web3.eth.Eth.get_logs)
+Web3.py:
+  - web3py.readthedocs.io
 
-**DuckDB:**
-- [Python API](https://duckdb.org/docs/api/python/overview)
-- [SQL Reference](https://duckdb.org/docs/sql/introduction)
+DuckDB:
+  - duckdb.org/docs
+```
 
-**Sepolia:**
-- [Etherscan](https://sepolia.etherscan.io)
-- [Faucet](https://sepoliafaucet.com)
+### Learning
+```
+Smart Contract Security:
+  - consensys.github.io/smart-contract-best-practices
+
+MEV & Front-running:
+  - flashbots.net
+  - mev.wiki
+```
+
+### APIs
+```
+Alchemy:
+  - docs.alchemy.com
+
+CoinGecko:
+  - coingecko.com/api/documentation
+
+0x API:
+  - 0x.org/docs/api
+```
 
 ---
 
-## 🎯 Sonraki Adımlar
+## ❓ SSS
 
-### Week 1 Preview
+### Trade edecek miyiz?
 ```
-1. Event Collector Loop
-   - 30s polling
-   - Transfer + Swap events
-   - Auto-recovery
+Varsayılan: HAYIR
 
-2. Price Feeds
-   - CoinGecko integration
-   - 5 min cache
-   - Fallback providers
+Mod 1: Read-only (W0-W8)
+  - Sadece izleme
+  - Alert generation
+  - Paper trading
 
-3. Wallet Report v1
-   - 24h net flow (USD)
-   - Token breakdown
-   - Gas spent
-   - API endpoint: GET /wallet/<addr>/report
+Mod 2: Testnet (future)
+  - Sepolia/Goerli
+  - Test tokens
+  - Real signing (but no value)
+
+Mod 3: Mainnet Simulation (future)
+  - Real data
+  - Simulated execution
+  - No on-chain tx
 ```
 
-### Commit
+### Hangi zincir?
+```
+Phase 1 (W0-W8):
+  - Sepolia (testnet)
+  - Ethereum mainnet (read-only)
+
+Phase 2 (v2):
+  - L2: Base, Arbitrum, Optimism
+  - Multi-chain wallet tracking
+```
+
+### Neden RAG/LLM?
+```
+Problem:
+  "Large swap detected" → Kullanıcı: "So what?"
+
+Çözüm (RAG):
+  "Large swap detected.
+  
+  Bu MEV bot olabilir çünkü:
+  - Gas price 2x normal
+  - Tx frontrun pozisyonunda
+  - Kaynak: Flashbots docs, Section 3.2"
+
+→ Uyarıya BAĞLAM ve KAYNAK ekler
+```
+
+### Private key gerekli mi?
+```
+Week 0-8: HAYIR
+  - Read-only RPC
+  - No signing
+
+İleride (opsiyonel):
+  - Hardware wallet (Ledger)
+  - EIP-712 signing
+  - Confirm every tx
+  - Gas caps
+```
+
+---
+
+## 🎉 Sonraki Adım
+
+### Bugün (Week 0 - 30-45 dk)
+
 ```bash
-cd /Users/onur/code/novadev-protocol
-git add crypto/
-git commit -m "crypto W0: setup complete - rpc health + event capture + report v0"
+# 1. Setup
+cd /Users/onur/code/novadev-protocol/crypto/w0_bootstrap
+cat README.md
+
+# 2. Dependencies
+pip install -e ".[crypto]"
+
+# 3. Configure
+cp .env.example .env
+# vim .env → RPC_URL
+
+# 4. Test
+python rpc_health.py
+python capture_transfers.py --blocks 5000
+python report_v0.py --wallet 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+
+# Hepsi ✓ ise:
+echo "Crypto W0 Complete ✓"
+```
+
+### Yarın (Week 1 - AI + Crypto Paralel)
+
+```
+Sabah (60-90 dk): AI Linear Regression
+  cd week1_tensors
+  python train.py
+
+Öğlen (45-60 dk): Crypto Veri Katmanı
+  cd crypto/w1_ingest
+  python collector_loop.py
+
+Akşam (15 dk): Commit + log
+  git commit -m "W1: AI MSE=0.42 ✓, Crypto collector running ✓"
 ```
 
 ---
 
-**Week 0 Tamamlandı! 🎉**
+**NovaDev Crypto — "Read-Only, Safe, Informative"**
 
-*Sonraki: Week 1 (On-Chain Data Layer)*
+*Versiyon: 1.1 (Paralel Program)*  
+*Son Güncelleme: 2025-10-06*  
+*Status: Week 0 Ready! 🔗*
+
+**Program Ana Sayfa:** [docs/program_overview.md](../docs/program_overview.md)
