@@ -48,6 +48,10 @@
 - Güvenlik ilkeleri & rapor disiplini
 - Haftalık komut planları
 
+**8 Haftalık Master Track'ler:**
+- 🧠 [docs/AI_TRACK_OUTLINE.md](docs/AI_TRACK_OUTLINE.md) ⭐ **YENİ!** (1,536 satır, Week 1-8 AI roadmap)
+- 🪙 [docs/CRYPTO_TRACK_OUTLINE.md](docs/CRYPTO_TRACK_OUTLINE.md) ⭐ **YENİ!** (1,218 satır, Week 1-8 Crypto roadmap)
+
 **Ek Detaylar:**
 - [docs/overview.md](docs/overview.md) - AI hattı derinlemesine
 - [docs/crypto_overview.md](docs/crypto_overview.md) - Crypto hattı derinlemesine
