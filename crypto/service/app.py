@@ -1,163 +1,126 @@
 """
-NovaDev Crypto Service
-Week 0 → Week 1: Minimal FastAPI service
+FastAPI Application
+
+NovaDev Crypto API - On-chain intelligence service
 
 Endpoints:
-- GET /healthz
-- GET /wallet/{addr}/report?hours=24
+- GET /healthz: Health check
+- GET /wallet/{address}/report: Wallet activity report
+- GET /docs: OpenAPI documentation (Swagger UI)
+- GET /redoc: Alternative API documentation (ReDoc)
+
+Usage:
+    # Development (auto-reload)
+    uvicorn crypto.service.app:app --reload --port 8000
+    
+    # Production (multi-worker)
+    uvicorn crypto.service.app:app --host 0.0.0.0 --port 8000 --workers 4
+    
+    # With Gunicorn
+    gunicorn crypto.service.app:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 """
-from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel, Field
-from pathlib import Path
-import duckdb
 
-HERE = Path(__file__).resolve().parent
-DB_PATH = HERE.parent / "w0_bootstrap" / "onchain.duckdb"
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import logging
 
+from .config import settings
+from .deps import init_db_pool, init_cache
+from .routes import health, wallet
+
+# Configure logging
+logging.basicConfig(
+    level=getattr(logging, settings.log_level.upper()),
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+logger = logging.getLogger(__name__)
+
+# Create FastAPI app
 app = FastAPI(
-    title="NovaDev Crypto Service",
+    title="NovaDev Crypto API",
+    description="On-chain intelligence API for wallet activity analysis",
     version="0.1.0",
-    description="On-Chain Intel Copilot (Read-Only)"
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
-
-class Counterparty(BaseModel):
-    address: str = Field(..., description="Counterparty address")
-    amount: float = Field(..., description="Total amount transacted")
-
-
-class Report(BaseModel):
-    wallet: str = Field(..., description="Wallet address (lowercase)")
-    window_hours: int = Field(..., description="Time window in hours")
-    inbound: float = Field(..., description="Total inbound amount")
-    outbound: float = Field(..., description="Total outbound amount")
-    net_flow: float = Field(..., description="Net flow (inbound - outbound)")
-    tx_count: int = Field(..., description="Number of transactions")
-    top_counterparties: list[Counterparty] = Field(
-        default_factory=list,
-        description="Top 3 counterparties by volume"
-    )
+# CORS middleware (disabled by default, enable if needed)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],  # Change to specific origins in production
+#     allow_credentials=True,
+#     allow_methods=["GET"],
+#     allow_headers=["*"],
+# )
 
 
-@app.get("/healthz", tags=["Health"])
-def healthz():
-    """Health check endpoint"""
-    db_exists = DB_PATH.exists()
-    return {
-        "ok": True,
-        "db_exists": db_exists,
-        "db_path": str(DB_PATH)
-    }
-
-
-@app.get(
-    "/wallet/{addr}/report",
-    response_model=Report,
-    tags=["Wallet"],
-    summary="Get wallet report",
-    description="Get transaction summary for a wallet address"
-)
-def wallet_report(
-    addr: str,
-    hours: int = Query(24, ge=1, le=168, description="Time window (1-168 hours)")
-):
+@app.on_event("startup")
+async def startup_event():
     """
-    Get wallet report for given address and time window
+    Initialize services on startup
     
-    **Example:**
-    ```
-    GET /wallet/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/report?hours=24
-    ```
+    Steps:
+    1. Initialize database connection pool
+    2. Initialize cache
+    3. Log startup message
     """
-    # Validate address format
-    if not addr.startswith("0x") or len(addr) != 42:
-        raise HTTPException(
-            status_code=400,
-            detail="Invalid address format (expected: 0x... 42 chars)"
+    logger.info("Starting NovaDev Crypto API...")
+    
+    # Initialize database pool
+    try:
+        init_db_pool(settings.db_path)
+        logger.info(f"Database pool initialized: {settings.db_path}")
+    except Exception as e:
+        logger.error(f"Failed to initialize database pool: {e}")
+        raise
+    
+    # Initialize cache
+    try:
+        init_cache(
+            capacity=settings.cache_capacity,
+            ttl_seconds=settings.cache_ttl
         )
-    
-    # Check DB exists
-    if not DB_PATH.exists():
-        raise HTTPException(
-            status_code=500,
-            detail="Database not found. Run capture first."
+        logger.info(
+            f"Cache initialized: capacity={settings.cache_capacity}, "
+            f"ttl={settings.cache_ttl}s"
         )
-    
-    # Connect to DB
-    try:
-        con = duckdb.connect(str(DB_PATH), read_only=True)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"DB connection error: {e}")
+        logger.error(f"Failed to initialize cache: {e}")
+        raise
     
-    w = addr.lower()
-    
-    # Aggregate query
-    q_agg = """
-    WITH recent AS (
-      SELECT *
-      FROM transfers
-      WHERE block_time >= now() - INTERVAL ? HOUR
-        AND (lower(from_addr) = ? OR lower(to_addr) = ?)
-    )
-    SELECT 
-      COALESCE(SUM(CASE WHEN lower(to_addr) = ? THEN value_unit ELSE 0 END), 0) AS inbound,
-      COALESCE(SUM(CASE WHEN lower(from_addr) = ? THEN value_unit ELSE 0 END), 0) AS outbound,
-      COUNT(*) AS tx_count
-    FROM recent
-    """
-    
-    try:
-        result = con.execute(q_agg, [hours, w, w, w, w]).fetchone()
-        inbound, outbound, tx_count = result if result else (0.0, 0.0, 0)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Query error: {e}")
-    
-    # Top counterparties
-    q_top = """
-    WITH recent AS (
-      SELECT *
-      FROM transfers
-      WHERE block_time >= now() - INTERVAL ? HOUR
-        AND (lower(from_addr) = ? OR lower(to_addr) = ?)
-    )
-    SELECT 
-      CASE WHEN lower(to_addr) = ? THEN from_addr ELSE to_addr END AS counterparty,
-      SUM(value_unit) AS amount
-    FROM recent
-    GROUP BY 1
-    ORDER BY amount DESC
-    LIMIT 3
-    """
-    
-    try:
-        tops = con.execute(q_top, [hours, w, w, w]).fetchall()
-    except Exception as e:
-        tops = []
-    
-    return {
-        "wallet": w,
-        "window_hours": hours,
-        "inbound": float(inbound),
-        "outbound": float(outbound),
-        "net_flow": float(inbound - outbound),
-        "tx_count": int(tx_count),
-        "top_counterparties": [
-            {"address": addr, "amount": float(amt)}
-            for addr, amt in tops
-        ]
-    }
+    logger.info("✅ NovaDev Crypto API started successfully")
+    logger.info(f"   Chain ID: {settings.chain_id}")
+    logger.info(f"   Docs: http://localhost:8000/docs")
 
 
-@app.get("/", tags=["Info"])
-def root():
-    """API info"""
-    return {
-        "name": "NovaDev Crypto Service",
-        "version": "0.1.0",
-        "status": "Week 0 → Week 1",
-        "endpoints": {
-            "healthz": "GET /healthz",
-            "wallet_report": "GET /wallet/{addr}/report?hours=24"
-        },
-        "docs": "/docs"
-    }
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Cleanup on shutdown"""
+    logger.info("Shutting down NovaDev Crypto API...")
+    logger.info("✅ Shutdown complete")
+
+
+# Include routers
+app.include_router(health.router)
+app.include_router(wallet.router)
+
+
+# Root endpoint
+@app.get("/", include_in_schema=False)
+async def root():
+    """Root endpoint redirect to docs"""
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url="/docs")
+
+
+if __name__ == "__main__":
+    import uvicorn
+    
+    uvicorn.run(
+        "crypto.service.app:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+        log_level="info"
+    )
