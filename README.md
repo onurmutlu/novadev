@@ -126,20 +126,19 @@ python3 --version
 python3 -m venv .venv
 source .venv/bin/activate  # macOS/Linux
 
-# 4. Dependencies
+# 4. Dependencies (AI + Crypto)
 pip install --upgrade pip
-pip install -e ".[dev]"
+pip install -e ".[dev,crypto]"
 
-# 5. MPS test (Apple Silicon)
-python week0_setup/hello_tensor.py
+# 5. Verify install
+python week0_setup/hello_tensor.py  # MPS test (AI)
 # Output: "MPS is available! ✓"
 
-# 6. Pytest & Lint
-pytest -q
-ruff check .
+pytest -q       # Tests
+ruff check .    # Lint
 ```
 
-### Sonraki Adım
+### AI Quick Start (30 dk)
 
 ```bash
 # Week 0 teoriyi tamamladın mı?
@@ -156,35 +155,125 @@ cd week1_tensors
 cat README.md  # 45 dk hızlı sprint planı
 ```
 
+### Crypto Quick Start (30-45 dk)
+
+```bash
+# 1. RPC Provider Setup (Alchemy/Infura)
+# https://dashboard.alchemy.com → Create App → Sepolia
+
+# 2. Configure .env
+cd crypto/w0_bootstrap
+cp .env.example .env
+# vim .env → RPC_URL yapıştır
+
+# 3. Test RPC (5 dk)
+make c.health
+# → ✅ RPC OK | latest block: 12345678 | 145.3 ms
+
+# 4. Capture Events (10 dk) - Idempotent & State-tracked
+make c.capture.idem
+# → ✅ Scanning 123456..123500 (latest=123505, buffer=5)
+# → ✅ Done. State last_scanned_block=123500
+
+# 5. Wallet Report (JSON + Validation)
+make report.schema W=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+# → ✅ report_v1 schema valid
+
+# 6. FastAPI Service (5 dk)
+make c.api
+# Terminal 2: curl http://localhost:8000/healthz
+# Browser: http://localhost:8000/docs  (OpenAPI/Swagger)
+
+# 7. Test Endpoint
+curl "http://localhost:8000/wallet/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/report?hours=24"
+# → {"wallet":"0x...","inbound":12.34,"outbound":5.67,...}
+
+# Hepsi ✓ ise:
+cat crypto/README.md  # 8 haftalık roadmap
+```
+
+### Makefile Komutları (Kısayollar)
+
+```bash
+# ===== AI =====
+make ai.test            # pytest
+make ai.lint            # ruff check
+make ai.week1           # Week 1 train
+
+# ===== Crypto =====
+make crypto.health      # RPC health check
+make crypto.capture     # Basic capture (1500 blok)
+make crypto.capture.idem  # 🔥 Idempotent + state tracking
+make crypto.report W=0x...  # CLI pretty report
+make crypto.report.json W=0x...  # JSON report
+make crypto.api         # FastAPI service (uvicorn)
+
+# ===== Shortcuts (aliases) =====
+make c.health           # = crypto.health
+make c.capture.idem     # = crypto.capture.idem
+make c.api              # = crypto.api
+
+# ===== Quality & CI =====
+make docs.check         # Markdown link validation
+make py.ci              # Ruff + pytest
+make report.schema W=0x...  # JSON schema validation
+
+# Tüm komutlar:
+make help
+```
+
 ---
 
 ## 📋 Günlük / Haftalık Ritim
 
-### Günlük (2-3 saat)
+### Günlük (2-3 saat) — AI + Crypto Paralel
 
 ```
-Sabah (30 dk):
-  1. Hedef belirle (1 cümle)
-  2. Plan yap (3 madde)
-  3. Teori notunu oku (15-30 dk)
+Sabah (60-90 dk): AI Hattı
+  1. Teori notunu oku (15-30 dk)
+  2. Kod/Deney yap (AI feature/model)
+  3. Metrikleri kaydet (exp_log.csv)
 
-Öğlen (90 dk):
-  4. Kod/Deney yap
-  5. Metrikleri kaydet
+Öğlen (45-60 dk): Crypto Hattı
+  4. Event capture kontrol / yeni özellik
+  5. API/Servis geliştir
+  6. Test + validation
 
-Akşam (15 dk):
-  6. Log + Özet (exp_log.csv)
-  7. Git commit
+Akşam (15 dk): Kapanış
+  7. Log + Özet (exp_log.csv + report.md)
+  8. Git commit (her iki hat)
 ```
 
-**Kural:** _"Bugün 1 deney koşmadıysan, öğrenmedin."_
+**Kural:** _"Bugün 1 AI deneyi + 1 Crypto özelliği koşmadıysan, öğrenmedin."_
 
 ### Haftalık
 
 ```
-Pazartesi:      Hedef & Plan
-Salı-Perşembe:  Deneyler & Ablation
+Pazartesi:      Hedef & Plan (AI + Crypto)
+Salı-Perşembe:  Paralel deneyler
+                  • AI: Ablation + sweep
+                  • Crypto: Endpoint + test
 Cuma:           Rapor & Demo
+                  • AI metrik grafiği
+                  • Crypto API demo (curl/Postman)
+```
+
+### Örnek Günlük Plan (W1)
+
+```
+Sabah (AI):
+  □ linreg_manual.py → val MSE < 0.5 ✓
+  □ LR sweep {1e-2,5e-3,1e-3} ✓
+  □ loss_curve.png kaydet ✓
+
+Öğlen (Crypto):
+  □ capture_transfers_idempotent test ✓
+  □ /wallet/{addr}/report endpoint ✓
+  □ JSON schema validate ✓
+
+Akşam:
+  □ exp_log.csv güncelle ✓
+  □ git commit -m "W1D2: AI MSE=0.42, Crypto /report OK" ✓
 ```
 
 ---
@@ -193,41 +282,73 @@ Cuma:           Rapor & Demo
 
 ```
 novadev-protocol/
-├── docs/
-│   ├── overview.md           ⭐ Genel bakış (önce oku!)
-│   └── week0_kapanis.md      Self-assessment
+├── docs/                     📚 Dökümantasyon (2899 satır)
+│   ├── program_overview.md  ⭐⭐⭐ TAM SYLLABUS (önce oku!)
+│   ├── overview.md          AI hattı detayı
+│   ├── crypto_overview.md   Crypto hattı detayı
+│   └── week0_kapanis.md     Self-assessment
 │
-├── week0_setup/              ✅ Teori (7061 satır)
+├── schemas/                  🔐 API Contracts
+│   └── report_v1.json       WalletReportV1 JSON schema
+│
+├── .github/workflows/        🤖 CI/CD
+│   ├── docs-link-check.yml  Markdown validation
+│   └── python-ci.yml        Ruff + pytest
+│
+├── week0_setup/              ✅ AI Teori (7061 satır)
 │   ├── README.md
-│   ├── theory_intro.md       (Lise seviyesi)
+│   ├── theory_intro.md      (Lise seviyesi)
 │   ├── theory_core_concepts.md (Üniversite)
 │   ├── theory_foundations.md (Sezgisel)
 │   ├── theory_mathematical.md (Matematik)
 │   ├── theory_mathematical_part2.md
-│   ├── theory_advanced.md    (Pratik & Saha)
-│   └── theory_closure.md     (Self-assessment)
+│   ├── theory_advanced.md   (Pratik & Saha)
+│   └── theory_closure.md    (Self-assessment)
 │
-├── week1_tensors/            👉 Linear Regression (şimdi!)
-│   ├── README.md             (45 dk sprint + 5 gün plan)
+├── week1_tensors/            👉 AI W1: Linear Regression
+│   ├── README.md            (45 dk sprint + 5 gün plan)
 │   ├── data_synth.py
 │   ├── linreg_manual.py
 │   ├── linreg_module.py
 │   └── train.py
 │
-├── week2_mlp/                MLP + MNIST
-├── week3_nlp/                BERT fine-tune
-├── week4_rag/                RAG pipeline
-├── week5_agent/              Tool-agent
-├── week6_lora/               LoRA fine-tune
-├── week7_service/            FastAPI + Docker
-├── week8_capstone/           Demo
+├── week2_mlp/                AI W2: MLP + MNIST
+├── week3_nlp/                AI W3: BERT fine-tune
+├── week4_rag/                AI W4: RAG pipeline
+├── week5_agent/              AI W5: Tool-agent
+├── week6_lora/               AI W6: LoRA fine-tune
+├── week7_service/            AI W7: FastAPI + Docker
+├── week8_capstone/           AI+Crypto W8: Demo
+│
+├── crypto/                   🪙 On-Chain Intelligence
+│   ├── README.md            ⭐ Crypto roadmap & setup
+│   │
+│   ├── w0_bootstrap/        ✅ Week 0: RPC + Ingest + Report
+│   │   ├── README.md        Quick start (30-45 dk)
+│   │   ├── .env.example     Config template
+│   │   ├── rpc_health.py    RPC check
+│   │   ├── capture_transfers.py  Basic ingest
+│   │   ├── capture_transfers_idempotent.py  🔥 Production ingest
+│   │   ├── report_v0.py     CLI report (pretty)
+│   │   ├── report_json.py   JSON report (API-ready)
+│   │   └── validate_report.py  Schema validator
+│   │
+│   ├── service/             🚀 FastAPI Service
+│   │   └── app.py          /healthz, /wallet/{addr}/report
+│   │
+│   ├── w1_ingest/           (Coming: Collector loop)
+│   ├── w2_alerts/           (Coming: Telegram bot)
+│   ├── w3_classifier/       (Coming: Event classifier)
+│   └── ...                  (W4-W8)
 │
 ├── common/                   Shared utils
 ├── tests/                    Haftalık testler
 ├── outputs/                  Metrikler & grafikler
 ├── reports/                  Haftalık raporlar
 │
-├── pyproject.toml            Dependencies
+├── pyproject.toml            Dependencies ([dev], [crypto], etc.)
+├── Makefile                  🔧 Command shortcuts (15+ targets)
+├── CHANGELOG.md              📋 Version history
 ├── .gitignore
 └── README.md                 (Bu dosya)
 ```
